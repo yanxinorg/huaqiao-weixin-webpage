@@ -1,0 +1,42 @@
+.report-header {
+    width: 100%;
+}
+
+.report-patient {
+    width: 25%;
+}
+
+.report-brief {
+    width: 75%;
+}
+
+.report-header, .patient-brief {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.report-patient, .report-brief {
+    display: flex;
+    flex-direction: column;
+}
+
+.report-patient {
+    align-items: center;
+}
+
+.patient-head-img {
+    width: 5rem;
+    height: 5rem;
+    margin: 0.7rem 0;
+    cursor: pointer;
+}
+
+.patient-gender, .patient-age {
+    margin: 0.3rem 0.5rem;
+}
+
+button {
+    position: fixed;
+    bottom: 0;
+}

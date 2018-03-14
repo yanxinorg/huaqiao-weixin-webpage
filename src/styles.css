@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+
+/*
+ * 分隔线
+ */
+
+.split-line {
+    width: 100%;
+    height: 1.5rem;
+    background-color: #ccc;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.split-line div {
+    color: #fff;
+    font-size: 9pt;
+    padding: 0 1rem;
+}

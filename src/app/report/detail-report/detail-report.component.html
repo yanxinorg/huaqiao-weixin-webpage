@@ -1,0 +1,32 @@
+<div class="report-header">
+    <div class="report-patient">
+        <div>
+            <img class="patient-head-img" src="{{ patientHeadImage }}">
+        </div>
+        <div class="patient-name">{{ patientName }}</div>
+        <div class="patient-brief">
+            <div class="patient-gender">{{ patientGender }}</div>
+            <div class="patient-age">{{ patientAge }}</div>
+        </div>
+    </div>
+    <div class="report-brief">
+        <div class="">
+            <label for="title">报告标题</label>
+            <div id="title" class="report-title">{{ reportTitle }}</div>
+        </div>
+        <div>
+            <label for="datetime">报告日期</label>
+            <div id="datetime" class="report-datetime">{{ reportDatetime }}</div>
+        </div>
+        <div>
+            <label for="sample-type">标本类型</label>
+            <div id="sample-type" class="report-sample-type">{{ reportSampleType }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="split-line">
+    <div>报告单详情</div>
+</div>
+
+<button (click)="saveReportToAlbum()" type="button" class="btn btn-success btn-lg btn-block">保存至相册</button>

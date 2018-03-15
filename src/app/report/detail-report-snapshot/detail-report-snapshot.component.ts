@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+// import {ActivatedRoute} from '@angular/router';
 import {LocalStorageService} from '../../services/local.storage.service';
 
 @Component({
@@ -10,7 +10,7 @@ import {LocalStorageService} from '../../services/local.storage.service';
 export class DetailReportSnapshotComponent implements OnInit {
     snapshot: string;
 
-    constructor(private route: ActivatedRoute,
+    constructor(// private route: ActivatedRoute,
                 private localStorage: LocalStorageService) {
     }
 

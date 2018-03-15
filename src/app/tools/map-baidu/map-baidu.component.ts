@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {
     ControlAnchor, GeolocationControlOptions, MapOptions, MapTypeControlOptions, MapTypeControlType, MarkerOptions,
     NavigationControlOptions, NavigationControlType,
-    OverviewMapControlOptions,
     Point, ScaleControlOptions
 } from 'angular2-baidu-map';
+// import {WxJSSDKService} from '../../services/wx.js-sdk.service';
+// import {BackboneService} from '../../services/backbone.service';
 
 const name = '莆田华侨医院';
 const address = '地址：莆田市涵江区江口镇石庭西路6号';
@@ -27,6 +28,9 @@ export class MapBaiduComponent implements OnInit {
     public mapTypeOpts: MapTypeControlOptions;
     public markers: Array<{ point: Point; options?: MarkerOptions }>;
     public mapViewHeight;
+
+    // constructor(private backbone: BackboneService) {
+    // }
 
     constructor() {
     }
@@ -104,6 +108,23 @@ export class MapBaiduComponent implements OnInit {
         };
 
         this.mapViewHeight = window.innerHeight.toString() + 'px';
+
+        /**
+         * 路线规则
+         *  1. 获取微信坐标
+         *  2. 转化为百度坐标
+         *  3. 调用百度地图路线规则的URL API
+         */
+        // this.backbone.getSignature(window.location.href).subscribe(data => {
+        //     console.log(data);
+        //     WxJSSDKService
+        //         .config('wx853357062285c49a', data.timestamp, data.nonceStr, data.signature, ['getLocation'])
+        //         .then(WxJSSDKService.ready)
+        //         .then(WxJSSDKService.getLocation)
+        //         .then(function (response) {
+        //         });
+        //     WxJSSDKService.error();
+        // });
     }
 
     /**

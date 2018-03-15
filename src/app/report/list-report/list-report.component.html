@@ -1,14 +1,16 @@
 <!--<button class="btn btn-sm btn-outline-primary" (click)="selectToday()">Select Today</button>-->
 <!--<button class="btn btn-sm btn-outline-primary" (click)="dp.navigateTo()">To current month</button>-->
 <!--<button class="btn btn-sm btn-outline-primary" (click)="dp.navigateTo({year: 2013, month: 2})">To Feb 2013</button>-->
-<form class="flex-row">
-    <div class="form-group"></div>
+<form class="flex-row report-top">
+    <div class="form-group">
+        <ngb-alert type="danger" *ngIf="errorMessage" (close)="errorMessage=''">{{ errorMessage }}</ngb-alert>
+    </div>
     <div class="form-group">
         <div class="input-group align-items-center">
             <div>起始日期：</div>
             <input class="form-control" placeholder="yyyy-mm-dd"
                    name="bdp" [(ngModel)]="fromDate" ngbDatepicker #bd="ngbDatepicker"
-                   (click)="ed.close(); bd.toggle();" (ngModelChange)="onDateChange($event)">
+                   (click)="ed.close(); bd.toggle();">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" (click)="ed.close(); bd.toggle();" type="button">
                     <img class="date-picker-btn-img" src="../../../assets/icons/report/calendar.png"/>
@@ -21,7 +23,7 @@
             <div>截止日期：</div>
             <input class="form-control" placeholder="yyyy-mm-dd"
                    name="edp" [(ngModel)]="toDate" ngbDatepicker #ed="ngbDatepicker"
-                   (click)="bd.close(); ed.toggle();" (ngModelChange)="onDateChange($event)">
+                   (click)="bd.close(); ed.toggle();">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" (click)="bd.close(); ed.toggle();" type="button">
                     <img class="date-picker-btn-img" src="../../../assets/icons/report/calendar.png"/>
@@ -29,12 +31,19 @@
             </div>
         </div>
     </div>
+    <div class="form-group">
+        <button class="btn btn-outline-danger btn-block" (click)="findMyReport()">查询</button>
+    </div>
 </form>
 
 <div class="split-line">
     <div>报告单</div>
 </div>
 
-<!--<pre>Month: {{ date.month }}.{{ date.year }}</pre>-->
-<pre>起始日期: {{ fromDate | json }}</pre>
-<pre>截止日期: {{ toDate | json }}</pre>
+<div *ngFor="let report of reports">
+    <div (click)="toReportDetail(report.rid)">
+    <div>{{ report.title }}</div>
+    <div>{{ report.create_time}}</div>
+    <hr>
+    </div>
+</div>

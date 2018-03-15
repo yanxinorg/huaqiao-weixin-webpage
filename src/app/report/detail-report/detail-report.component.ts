@@ -22,9 +22,9 @@ export class DetailReportComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.patientName = '李云鹏';
-        this.patientGender = '男';
-        this.patientAge = '32岁';
+        this.patientName = 'XXXXX';
+        this.patientGender = '女';
+        this.patientAge = 'XXX岁';
         this.reportTitle = 'XXXXXXXXXXXXXXXXXXXXXXXXXXX';
         this.reportDatetime = 'XXXX-XX-XX XX:XX:XX';
         this.reportSampleType = 'XXXXXXXXXXXXXXXXXXXXXXXXXXX';

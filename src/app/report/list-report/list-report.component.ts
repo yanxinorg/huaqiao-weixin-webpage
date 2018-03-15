@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
 import {BackboneService} from '../../services/backbone.service';
 
-// const now = new Date();
+const now = new Date();
 
 @Component({
     selector: 'app-list-report',
@@ -25,7 +25,8 @@ export class ListReportComponent implements OnInit {
 
     ngOnInit() {
         this.MrS = this.route.snapshot.paramMap.get('s');
-        console.log(this.MrS);
+        this.fromDate = {year: now.getFullYear(), month: now.getMonth(), day: now.getDate()};
+        this.toDate = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
 
     }
 

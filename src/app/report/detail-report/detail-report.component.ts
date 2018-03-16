@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import * as html2canvas from 'html2canvas';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {LocalStorageService} from '../../services/local.storage.service';
 
 @Component({
@@ -16,18 +16,23 @@ export class DetailReportComponent implements OnInit {
     reportTitle = '';
     reportDatetime = '';
     reportSampleType = '';
+    inspections: any[];
 
-    constructor(private router: Router,
+    constructor(private route: ActivatedRoute,
+                private router: Router,
                 private localStorage: LocalStorageService) {
     }
 
     ngOnInit() {
-        this.patientName = 'XXXXX';
-        this.patientGender = '女';
-        this.patientAge = 'XXX岁';
-        this.reportTitle = 'XXXXXXXXXXXXXXXXXXXXXXXXXXX';
-        this.reportDatetime = 'XXXX-XX-XX XX:XX:XX';
-        this.reportSampleType = 'XXXXXXXXXXXXXXXXXXXXXXXXXXX';
+        this.patientName = this.route.snapshot.paramMap.get('name');
+        this.patientGender = this.route.snapshot.paramMap.get('gender');
+        this.reportTitle = this.route.snapshot.paramMap.get('title');
+        this.reportDatetime = this.route.snapshot.paramMap.get('create_time');
+        this.reportSampleType = this.route.snapshot.paramMap.get('sample');
+        this.route.data
+            .subscribe((data: { reportInspectionResolver: any }) => {
+                this.inspections = data.reportInspectionResolver;
+            });
     }
 
     saveReportToAlbum() {

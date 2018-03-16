@@ -2,9 +2,7 @@
 <!--<button class="btn btn-sm btn-outline-primary" (click)="dp.navigateTo()">To current month</button>-->
 <!--<button class="btn btn-sm btn-outline-primary" (click)="dp.navigateTo({year: 2013, month: 2})">To Feb 2013</button>-->
 <form class="flex-row report-top">
-    <div class="form-group">
-        <ngb-alert type="danger" *ngIf="errorMessage" (close)="errorMessage=''">{{ errorMessage }}</ngb-alert>
-    </div>
+    <ngb-alert type="danger" *ngIf="errorMessage" (close)="errorMessage=''">{{ errorMessage }}</ngb-alert>
     <div class="form-group">
         <div class="input-group align-items-center">
             <div>起始日期：</div>
@@ -39,11 +37,15 @@
 <div class="split-line">
     <div>报告单</div>
 </div>
-
-<div *ngFor="let report of reports">
-    <div (click)="toReportDetail(report.rid)">
-    <div>{{ report.title }}</div>
-    <div>{{ report.create_time}}</div>
-    <hr>
+<div class="no-record" *ngIf="isEmpty">
+    暂无记录
+</div>
+<div class="report-list">
+    <div *ngFor="let report of reports">
+        <div (click)="toReportDetail(report.rid, report.title, report.sample, report.create_time)">
+            <h4>{{ report.title }} - {{ report.rid }}</h4>
+            <h6>{{ report.create_time}}</h6>
+            <hr>
+        </div>
     </div>
 </div>

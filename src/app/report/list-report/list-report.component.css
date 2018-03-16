@@ -4,6 +4,12 @@
     cursor: pointer;
 }
 
-.report-top {
-    padding: 0 1rem;
+.report-top, .report-list {
+    padding: 1rem;
+}
+
+.no-record {
+    width: 100%;
+    padding: 3rem 1rem;
+    text-align: center;
 }

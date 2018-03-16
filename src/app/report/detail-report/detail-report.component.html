@@ -1,32 +1,45 @@
 <div class="report-header">
     <div class="report-patient">
-        <div>
-            <img class="patient-head-img" src="{{ patientHeadImage }}">
-        </div>
+        <!--<div>-->
+        <!--<img class="patient-head-img" src="{{ patientHeadImage }}">-->
+        <!--</div>-->
         <div class="patient-name">{{ patientName }}</div>
         <div class="patient-brief">
-            <div class="patient-gender">{{ patientGender }}</div>
+            <div class="patient-gender" *ngIf="patientGender === '1'">男</div>
+            <div class="patient-gender" *ngIf="patientGender === '2'">女</div>
             <div class="patient-age">{{ patientAge }}</div>
         </div>
     </div>
     <div class="report-brief">
         <div class="">
-            <label for="title">报告标题</label>
-            <div id="title" class="report-title">{{ reportTitle }}</div>
+            <div id="title" class="report-title">报告标题: {{ reportTitle }}</div>
         </div>
         <div>
-            <label for="datetime">报告日期</label>
-            <div id="datetime" class="report-datetime">{{ reportDatetime }}</div>
+            <div id="datetime" class="report-datetime">报告日期: {{ reportDatetime }}</div>
         </div>
         <div>
-            <label for="sample-type">标本类型</label>
-            <div id="sample-type" class="report-sample-type">{{ reportSampleType }}</div>
+            <div id="sample-type" class="report-sample-type">标本类型: {{ reportSampleType }}</div>
         </div>
     </div>
 </div>
 
-<div class="split-line">
-    <div>报告单详情</div>
-</div>
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">项目</th>
+        <th scope="col">结果</th>
+        <th scope="col">参考值</th>
+        <th scope="col">单位</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let inspection of inspections">
+        <th scope="row">{{ inspection.name }}</th>
+        <td>{{ inspection.result }}</td>
+        <td>{{ inspection.reference }}</td>
+        <td>{{ inspection.unit }}</td>
+    </tr>
+    </tbody>
+</table>
 
 <button (click)="saveReportToAlbum()" type="button" class="btn btn-success btn-lg btn-block">保存至相册</button>

@@ -10,8 +10,8 @@ export class UrlService {
         return PREFIX + '/sign?source=' + source;
     }
 
-    static RequestList(name: string, session: string): string {
-        return `${ PREFIX }/table/${ name }?session=${ session }`;
+    static RequestList(name: string, id: string): string {
+        return `${ PREFIX }/table/${ name }/id/${ id }`;
     }
 
     static RequestListInRange(name: string, session: string, from: string, to: string): string {

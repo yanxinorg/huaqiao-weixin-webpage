@@ -4,8 +4,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
 import {BackboneService} from '../../services/backbone.service';
 
-const now = new Date();
-
 @Component({
     selector: 'app-list-report',
     templateUrl: './list-report.component.html',
@@ -15,8 +13,11 @@ export class ListReportComponent implements OnInit {
     fromDate: NgbDateStruct;
     toDate: NgbDateStruct;
     MrS: string;
+    patientName: string;
+    patientSex: number;
     errorMessage = '';
     reports: any[];
+    isEmpty = false;
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
@@ -25,14 +26,14 @@ export class ListReportComponent implements OnInit {
 
     ngOnInit() {
         this.MrS = this.route.snapshot.paramMap.get('s');
-        this.fromDate = {year: now.getFullYear(), month: now.getMonth(), day: now.getDate()};
-        this.toDate = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
-
+        this.patientName = this.route.snapshot.paramMap.get('n');
+        this.patientSex = +this.route.snapshot.paramMap.get('g');
+        // 默认查询取值过去7天的记录
+        const fd = moment().subtract(7, 'days');
+        const td = moment();
+        this.fromDate = {year: fd.get('year'), month: fd.get('month') + 1, day: fd.get('date')};
+        this.toDate = {year: td.get('year'), month: td.get('month') + 1, day: td.get('date')};
     }
-
-    // selectToday() {
-    //     this.toDate = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
-    // }
 
     /**
      * 查询
@@ -43,10 +44,16 @@ export class ListReportComponent implements OnInit {
                 encodeURIComponent(`${ this.fromDate.year }/${ this.fromDate.month }/${ this.fromDate.day }`),
                 encodeURIComponent(`${ this.toDate.year }/${ this.toDate.month }/${ this.toDate.day }`))
                 .subscribe(data => {
-                    this.reports = data.map((item) => {
-                        item.create_time = moment(item.create_item).format('YYYY-M-D, h:mm:ss a');
-                        return item;
-                    });
+                    if (data.length === 0) {
+                        this.isEmpty = true;
+                        this.reports = [];
+                    } else {
+                        this.isEmpty = false;
+                        this.reports = data.map((item) => {
+                            item.create_time = moment(item.create_time).format('YYYY-M-D, h:mm:ss a');
+                            return item;
+                        });
+                    }
                 });
         }
     }
@@ -73,7 +80,14 @@ export class ListReportComponent implements OnInit {
         return false;
     }
 
-    toReportDetail(id: number) {
-        this.router.navigate(['/report/detail', {rid: id}]).then();
+    toReportDetail(id: number, title: string, sample: string, createTime: string) {
+        this.router.navigate(['/report/detail', {
+            rid: id,
+            name: this.patientName,
+            gender: this.patientSex,
+            title: title,
+            sample: sample,
+            create_time: createTime
+        }]).then();
     }
 }

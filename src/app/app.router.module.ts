@@ -9,6 +9,7 @@ import {DetailUserComponent} from './user/detail-user/detail-user.component';
 import {NewCardComponent} from './card/new-card/new-card.component';
 import {DetailReportSnapshotComponent} from './report/detail-report-snapshot/detail-report-snapshot.component';
 import {MapBaiduComponent} from './tools/map-baidu/map-baidu.component';
+import {ReportInspectionResolver} from './services/resolvers/report.resolver';
 
 const __ROUTES__: Routes = [
     {
@@ -20,7 +21,10 @@ const __ROUTES__: Routes = [
             },
             {
                 path: 'detail',
-                component: DetailReportComponent
+                component: DetailReportComponent,
+                resolve: {
+                    reportInspectionResolver: ReportInspectionResolver
+                }
             },
             {
                 path: 'snapshot',
@@ -33,10 +37,8 @@ const __ROUTES__: Routes = [
         children: [
             {
                 path: 'list',
-                component: ListCardComponent,
-                resolve: {
-                    // hospitalDetailResolver: HospitalDetailResolver
-                }
+                component: ListCardComponent
+
             },
             {
                 path: 'detail',
@@ -80,11 +82,7 @@ const __ROUTES__: Routes = [
     )],
     exports: [RouterModule],
     providers: [
-        // HospitalDetailResolver,
-        // AppointmentDetailResolver,
-        // DepartmentListResolver,
-        // RelativeDoctorsResolver,
-        // RelativeSchedulesResolver
+        ReportInspectionResolver
     ]
 })
 export class AppRouterModule {

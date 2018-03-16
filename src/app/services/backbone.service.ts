@@ -45,11 +45,31 @@ export class BackboneService {
             );
     }
 
+    /**
+     * 获取用户的报告单列表
+     * @param s
+     * @param from      起始日期
+     * @param to        截止日期
+     * @returns {Observable<{errMsg: string}|any>}
+     */
     getUserReportList(s: string, from: string, to: string): Observable<any> {
         return this.http
             .get<any>(UrlService.RequestListInRange('report', s, from, to))
             .pipe(
                 catchError(this.handleError('getUserReportList', {errMsg: '#getUserReportList#获取报告单失败'}))
+            );
+    }
+
+    /**
+     * 获取报告单详情
+     * @param id
+     * @returns {Observable<{errMsg: string}|any>}
+     */
+    getInspectionList(id: string) {
+        return this.http
+            .get<any>(UrlService.RequestList('report', id))
+            .pipe(
+                catchError(this.handleError('getInspectionList', {errMsg: '#getInspectionList#获取报告单详情失败'}))
             );
     }
 }

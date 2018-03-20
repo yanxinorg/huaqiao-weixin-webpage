@@ -36,6 +36,7 @@
 .more {
     position: absolute;
     float: right;
+    z-index: 9999;
 }
 
 .add-new-card {

@@ -115,6 +115,13 @@ export class BackboneService {
             );
     }
 
+    /**
+     *  验证就诊卡是否存在
+     * @param name
+     * @param phone
+     * @param session
+     * @returns {Observable<{errMsg: string}|any>}
+     */
     validatePatientIdCard(name: string, phone: string, session: string): Observable<any> {
         return this.http
             .post<any>(
@@ -130,6 +137,16 @@ export class BackboneService {
             );
     }
 
+    /**
+     *  绑定就诊卡
+     * @param sms
+     * @param phone
+     * @param code
+     * @param name
+     * @param s
+     * @param cardid
+     * @returns {Observable<{errMsg: string}|any>}
+     */
     bindPatientIdCard(sms: SmsMessage, phone: string, code: string, name: string, s: string, cardid: string): Observable<any> {
         return this.http
             .post<any>(
@@ -150,6 +167,11 @@ export class BackboneService {
 
     }
 
+    /**
+     * 解绑前的例行检查
+     * @param cardid
+     * @returns {Observable<{errMsg: string}|any>}
+     */
     unbindSafetyInspection(cardid: string): Observable<any> {
         return this.http
             .post<any>(
@@ -163,6 +185,14 @@ export class BackboneService {
             );
     }
 
+    /**
+     * 解绑
+     * @param sms
+     * @param phone
+     * @param code
+     * @param cardid
+     * @returns {Observable<{errMsg: string}|any>}
+     */
     unbindPatientIdCard(sms: SmsMessage, phone: string, code: string, cardid: string): Observable<any> {
         return this.http
             .post<any>(
@@ -177,6 +207,26 @@ export class BackboneService {
             )
             .pipe(
                 catchError(this.handleError('unbindSafetyInspection', {errMsg: '#unbindSafetyInspection#解绑过程发生错误'}))
+            );
+    }
+
+    /**
+     * 设置为缺省就诊卡
+     * @param session
+     * @param cardid
+     * @returns {Observable<{errMsg: string}|any>}
+     */
+    setAsDefaultPatientIdCard(session: string, cardid: string): Observable<any> {
+        return this.http
+            .post<any>(
+                UrlService.Default('card'),
+                {
+                    session: session,
+                    cardid: cardid
+                }
+            )
+            .pipe(
+                catchError(this.handleError('setAsDefaultPatientIdCard', {errMsg: '#setAsDefaultPatientIdCard#发生错误'}))
             );
     }
 }

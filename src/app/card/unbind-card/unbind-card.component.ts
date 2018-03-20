@@ -28,7 +28,7 @@ export class UnbindCardComponent implements OnInit {
         this.cardid = this.route.snapshot.paramMap.get('cardid');
         this.bindingPhone = this.route.snapshot.paramMap.get('phone');
         this.MrS = this.route.snapshot.paramMap.get('s');
-        this.errorMessage = `验证码已发送到手机尾号${ this.bindingPhone.substr(7, 4) }的手机上，请注意查收！`
+        this.errorMessage = `验证码已发送到手机尾号${ this.bindingPhone.substr(7, 4) }的手机上，请注意查收！`;
         // this.verificationSms = {
         //     Message: 'OK',
         //     RequestId: 'BC511054-D97B-4F01-BB0C-FE251DFF85F2',
@@ -57,8 +57,10 @@ export class UnbindCardComponent implements OnInit {
                     console.log(data);
                     if (data.code === 0) {
                         this.openHintModal('成功', `就诊卡${ this.cardid }已解绑`);
+                    } else if (data.code === -300) {
+                        this.errorMessage = data.msg;
                     } else {
-                        this.errorMessage = '错误';
+                        this.errorMessage = '发生错误';
                     }
                 });
         }

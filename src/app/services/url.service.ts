@@ -41,4 +41,8 @@ export class UrlService {
     static Unbind(): string {
         return `${ PREFIX }/unbind`;
     }
+
+    static Default(name: string): string {
+        return `${ PREFIX }/default/${ name }`;
+    }
 }

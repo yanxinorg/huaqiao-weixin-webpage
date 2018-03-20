@@ -9,9 +9,7 @@ export class UserInfoResolver implements Resolve<any> {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-        console.log('========== UserInfoResolver ==========');
         const session = route.paramMap.get('s');
-        console.log('session: | ' + session);
         return this.backbone.getUserInfo(session);
     }
 }

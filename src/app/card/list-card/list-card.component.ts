@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {BackboneService} from '../../services/backbone.service';
 
 @Component({
     selector: 'app-list-card',
@@ -11,7 +12,8 @@ export class ListCardComponent implements OnInit {
     MrS = '';
 
     constructor(private route: ActivatedRoute,
-                private router: Router) {
+                private router: Router,
+                private backbone: BackboneService) {
     }
 
     ngOnInit() {
@@ -27,5 +29,18 @@ export class ListCardComponent implements OnInit {
 
     unbindPatientIdCard(cardid: string, phone: string, s: string) {
         this.router.navigate(['/card/unbind', {cardid: cardid, phone: phone, s: s}]).then();
+    }
+
+    setAsDefaultPatientIdCard(cardid: string, s: string): void {
+        this.backbone.setAsDefaultPatientIdCard(s, cardid)
+            .subscribe(data => {
+                if (data.code === 0) {
+                    this.cards = this.cards.map(item => {
+                        item.cardid === cardid ? item.isDefault = 1 : item.isDefault = 0;
+                        item.isShowMore = false;
+                        return item;
+                    });
+                }
+            });
     }
 }

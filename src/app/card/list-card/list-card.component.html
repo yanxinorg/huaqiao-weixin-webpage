@@ -6,7 +6,10 @@
                 <img src="../../../assets/icons/public/refresh.png"/>
                 <img src="../../../assets/icons/public/more.png" (click)="card.isShowMore=!card.isShowMore"/>
                 <div class="more list-group" *ngIf="card.isShowMore">
-                    <!--<button class="list-group-item list-group-item-action">同步</button>-->
+                    <button class="list-group-item list-group-item-action"
+                            (click)="setAsDefaultPatientIdCard(card.cardid,MrS)">
+                        设为默认
+                    </button>
                     <button class="list-group-item list-group-item-action"
                             (click)="unbindPatientIdCard(card.cardid, card.phone, MrS)">
                         解绑
@@ -25,7 +28,7 @@
         </div>
         <div class="card-id d-flex flex-row justify-content-between align-items-cente">
             <div>健康卡：{{ card.cardid }}</div>
-            <div *ngIf="card.isDefault === 1"><kbd>默认卡</kbd></div>
+            <span *ngIf="card.isDefault === 1" class="badge badge-warning">默认卡</span>
         </div>
     </div>
     <div class="page-extra-part-bottom"></div>

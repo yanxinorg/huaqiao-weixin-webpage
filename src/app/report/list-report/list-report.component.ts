@@ -48,16 +48,25 @@ export class ListReportComponent implements OnInit {
                 encodeURIComponent(`${ this.fromDate.year }/${ this.fromDate.month }/${ this.fromDate.day }`),
                 encodeURIComponent(`${ this.toDate.year }/${ this.toDate.month }/${ this.toDate.day }`))
                 .subscribe(data => {
-                    if (data.length === 0) {
-                        this.isEmpty = true;
-                        this.reports = [];
-                    }
-                    else {
-                        this.isEmpty = false;
-                        this.reports = data.map((item) => {
-                            item.create_time = moment(item.create_time).format('YYYY-M-D,hh:mm:ss');
-                            return item;
-                        });
+                    /**
+                     *  未绑定就诊卡 或者 未设置默认就诊卡
+                     */
+                    if (data.hasOwnProperty('code') && data.code === -400) {
+                        this.errorMessage = '请进入个人中心设置默认就诊卡后再查询';
+                    } else {
+                        /**
+                         *  判断报告单是否空
+                         */
+                        if (data.msg.length === 0) {
+                            this.isEmpty = true;
+                            this.reports = [];
+                        } else {
+                            this.isEmpty = false;
+                            this.reports = data.msg.map((item) => {
+                                item.create_time = moment(item.create_time).format('YYYY-M-D,hh:mm:ss');
+                                return item;
+                            });
+                        }
                     }
                 });
         }

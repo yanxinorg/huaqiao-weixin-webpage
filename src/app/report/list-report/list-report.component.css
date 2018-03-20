@@ -4,9 +4,9 @@
     cursor: pointer;
 }
 
-.report-top, .report-list {
-    padding: 1rem;
-}
+/*.report-top, .report-list {*/
+    /*padding: 1rem;*/
+/*}*/
 
 .no-record {
     width: 100%;

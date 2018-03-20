@@ -1,3 +1,24 @@
-<p>
-  detail-user works!
-</p>
+<div class="container">
+    <div class="d-flex flex-row justify-content-start align-items-center">
+        <img class="user-head-image" src="{{ userHeadImage }}"/>
+        <div>
+            <div class="form-group">
+                <h3>{{ name }}</h3>
+            </div>
+            <div class="form-group d-flex flex-row">
+                <div *ngIf="gender===1">男</div>
+                <div *ngIf="gender===2">女</div>
+                <!--<div>{{ age }}</div>-->
+            </div>
+        </div>
+    </div>
+    <div class="list-group">
+        <!--<a href="#" class="list-group-item list-group-item-action">基本信息</a>-->
+        <a [routerLink]="['/card/list',{s: session}]" routerLinkActive="active"
+           class="list-group-item list-group-item-action">我的就诊卡</a>
+        <!--<a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">我的消息-->
+        <!--<span class="badge badge-primary badge-pill">14</span>-->
+        <!--</a>-->
+        <!--<a href="#" class="list-group-item list-group-item-danger">退出登录</a>-->
+    </div>
+</div>

@@ -4,6 +4,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
 import {BaiduMapModule} from 'angular2-baidu-map';
 import {HttpClientModule} from '@angular/common/http';
+import {WidgetModule} from './widget/widget.module';
 
 import {LocalStorageService} from './services/local.storage.service';
 import {BackboneService} from './services/backbone.service';
@@ -18,6 +19,8 @@ import {DetailUserComponent} from './user/detail-user/detail-user.component';
 import {NewCardComponent} from './card/new-card/new-card.component';
 import {DetailReportSnapshotComponent} from './report/detail-report-snapshot/detail-report-snapshot.component';
 import {MapBaiduComponent} from './tools/map-baidu/map-baidu.component';
+import {NewCardCheckedComponent} from './card/new-card-checked/new-card-checked.component';
+import {UnbindCardComponent} from './card/unbind-card/unbind-card.component';
 
 @NgModule({
     declarations: [
@@ -27,9 +30,11 @@ import {MapBaiduComponent} from './tools/map-baidu/map-baidu.component';
         DetailReportComponent,
         DetailCardComponent,
         NewCardComponent,
+        NewCardCheckedComponent,
         DetailUserComponent,
         DetailReportSnapshotComponent,
-        MapBaiduComponent
+        MapBaiduComponent,
+        UnbindCardComponent
     ],
     imports: [
         BrowserModule,
@@ -37,6 +42,7 @@ import {MapBaiduComponent} from './tools/map-baidu/map-baidu.component';
         HttpClientModule,
         NgbModule.forRoot(),
         BaiduMapModule.forRoot({ak: 'aclQwBnKi2ggQle8jOqEhUqL6QPiLuzq'}),
+        WidgetModule,
         AppRouterModule
     ],
     providers: [

@@ -1,3 +1,37 @@
-<p>
-  list-card works!
-</p>
+<div class="container">
+    <div class="card-item" *ngFor="let card of cards">
+        <div class="d-flex flex-row align-items-center justify-content-between basic-info">
+            <div>{{ card.name }}</div>
+            <div class="functional-area">
+                <img src="../../../assets/icons/public/refresh.png"/>
+                <img src="../../../assets/icons/public/more.png" (click)="card.isShowMore=!card.isShowMore"/>
+                <div class="more list-group" *ngIf="card.isShowMore">
+                    <!--<button class="list-group-item list-group-item-action">同步</button>-->
+                    <button class="list-group-item list-group-item-action"
+                            (click)="unbindPatientIdCard(card.cardid, card.phone, MrS)">
+                        解绑
+                    </button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row subtitle">
+            <div class="col-sm">门诊余额</div>
+            <div class="col-sm">住院余额</div>
+        </div>
+        <div class="row balance text-center">
+            <div class="col-sm">点击查看</div>
+            <div class="col-sm">点击查看</div>
+        </div>
+        <div class="card-id d-flex flex-row justify-content-between align-items-cente">
+            <div>健康卡：{{ card.cardid }}</div>
+            <div *ngIf="card.isDefault === 1"><kbd>默认卡</kbd></div>
+        </div>
+    </div>
+    <div class="page-extra-part-bottom"></div>
+</div>
+
+<a class="btn btn-block btn-success add-new-card" [routerLink]="['/card/new', {s: MrS}]"
+   routerLinkActive="active">
+    添加就诊卡
+</a>

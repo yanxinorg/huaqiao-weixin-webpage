@@ -1,7 +1,7 @@
 <!--<button class="btn btn-sm btn-outline-primary" (click)="selectToday()">Select Today</button>-->
 <!--<button class="btn btn-sm btn-outline-primary" (click)="dp.navigateTo()">To current month</button>-->
 <!--<button class="btn btn-sm btn-outline-primary" (click)="dp.navigateTo({year: 2013, month: 2})">To Feb 2013</button>-->
-<form class="flex-row report-top">
+<form class="flex-row container">
     <ngb-alert type="danger" *ngIf="errorMessage" (close)="errorMessage=''">{{ errorMessage }}</ngb-alert>
     <div class="form-group">
         <div class="input-group align-items-center">
@@ -30,7 +30,8 @@
         </div>
     </div>
     <div class="form-group">
-        <button class="btn btn-outline-danger btn-block" (click)="findMyReport()">查询</button>
+        <button id="btn-query" class="btn btn-danger btn-block" (click)="findMyReport()">查询
+        </button>
     </div>
 </form>
 
@@ -40,11 +41,12 @@
 <div class="no-record" *ngIf="isEmpty">
     暂无记录
 </div>
-<div class="report-list">
+<div class="container">
     <div *ngFor="let report of reports">
-        <div (click)="toReportDetail(report.rid, report.title, report.sample, report.create_time)">
-            <h4>{{ report.title }} - {{ report.rid }}</h4>
-            <h6>{{ report.create_time}}</h6>
+        <div class="blockquote text-left"
+             (click)="toReportDetail(report.rid, report.title, report.sample, report.create_time)">
+            <p class="mb-0">{{ report.title }} - {{ report.rid }}</p>
+            <footer class="blockquote-footer">{{ report.create_time}}</footer>
             <hr>
         </div>
     </div>

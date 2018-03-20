@@ -33,13 +33,17 @@ export class ListReportComponent implements OnInit {
         const td = moment();
         this.fromDate = {year: fd.get('year'), month: fd.get('month') + 1, day: fd.get('date')};
         this.toDate = {year: td.get('year'), month: td.get('month') + 1, day: td.get('date')};
+        // TODO: 如果MrS为空，则提示重新登录，或许可以重定向至错误提示页
+        if (typeof this.MrS === 'undefined' || this.MrS === null) {
+            this.errorMessage = '请重新登录';
+        }
     }
 
     /**
      * 查询
      */
     findMyReport() {
-        if (this.check() && this.MrS) {
+        if (this.MrS && this.check()) {
             this.backbone.getUserReportList(this.MrS,
                 encodeURIComponent(`${ this.fromDate.year }/${ this.fromDate.month }/${ this.fromDate.day }`),
                 encodeURIComponent(`${ this.toDate.year }/${ this.toDate.month }/${ this.toDate.day }`))
@@ -47,10 +51,11 @@ export class ListReportComponent implements OnInit {
                     if (data.length === 0) {
                         this.isEmpty = true;
                         this.reports = [];
-                    } else {
+                    }
+                    else {
                         this.isEmpty = false;
                         this.reports = data.map((item) => {
-                            item.create_time = moment(item.create_time).format('YYYY-M-D, h:mm:ss a');
+                            item.create_time = moment(item.create_time).format('YYYY-M-D,hh:mm:ss');
                             return item;
                         });
                     }

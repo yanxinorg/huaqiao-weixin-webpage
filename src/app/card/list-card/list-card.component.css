@@ -1,0 +1,44 @@
+.card-item {
+    margin: 0.3rem;
+    border: solid 1px #cccccc;
+    border-radius: 5px
+}
+
+.basic-info {
+    padding: 0.8rem;
+}
+
+.functional-area img {
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+    margin: 0 0.5rem;
+}
+
+.subtitle, .balance {
+    flex-wrap: nowrap;
+}
+
+.subtitle {
+    color: #cccccc;
+    font-size: small;
+    margin: 0.8rem;
+}
+
+.balance {
+    font-size: medium;
+}
+
+.card-id {
+    margin: 0.3rem 0.8rem;
+}
+
+.more {
+    position: absolute;
+    float: right;
+}
+
+.add-new-card {
+    position: fixed;
+    bottom: 0;
+}

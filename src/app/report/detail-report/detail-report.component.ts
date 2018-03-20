@@ -38,7 +38,7 @@ export class DetailReportComponent implements OnInit {
     saveReportToAlbum() {
         const that = this;
 
-        html2canvas(window.document.body, {
+        html2canvas(window.document.getElementById('report-detail'), {
             useCORS: true               // 【重要】开启跨域配置
         }).then(function (canvas) {
             /**

@@ -10,6 +10,10 @@ import {NewCardComponent} from './card/new-card/new-card.component';
 import {DetailReportSnapshotComponent} from './report/detail-report-snapshot/detail-report-snapshot.component';
 import {MapBaiduComponent} from './tools/map-baidu/map-baidu.component';
 import {ReportInspectionResolver} from './services/resolvers/report.resolver';
+import {CardListResolver, RemoveCardResolver} from './services/resolvers/card.resolver';
+import {NewCardCheckedComponent} from './card/new-card-checked/new-card-checked.component';
+import {UnbindCardComponent} from './card/unbind-card/unbind-card.component';
+import {UserInfoResolver} from './services/resolvers/user.resolver';
 
 const __ROUTES__: Routes = [
     {
@@ -37,8 +41,10 @@ const __ROUTES__: Routes = [
         children: [
             {
                 path: 'list',
-                component: ListCardComponent
-
+                component: ListCardComponent,
+                resolve: {
+                    cardListResolver: CardListResolver
+                }
             },
             {
                 path: 'detail',
@@ -47,6 +53,17 @@ const __ROUTES__: Routes = [
             {
                 path: 'new',
                 component: NewCardComponent
+            },
+            {
+                path: 'check',
+                component: NewCardCheckedComponent
+            },
+            {
+                path: 'unbind',
+                component: UnbindCardComponent,
+                resolve: {
+                    removeCardResolver: RemoveCardResolver
+                }
             }
         ]
     },
@@ -55,7 +72,10 @@ const __ROUTES__: Routes = [
         children: [
             {
                 path: 'detail',
-                component: DetailUserComponent
+                component: DetailUserComponent,
+                resolve: {
+                    userInfoResolver: UserInfoResolver
+                }
             }
         ]
     },
@@ -82,7 +102,10 @@ const __ROUTES__: Routes = [
     )],
     exports: [RouterModule],
     providers: [
-        ReportInspectionResolver
+        ReportInspectionResolver,
+        CardListResolver,
+        RemoveCardResolver,
+        UserInfoResolver
     ]
 })
 export class AppRouterModule {

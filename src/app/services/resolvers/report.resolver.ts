@@ -10,6 +10,6 @@ export class ReportInspectionResolver implements Resolve<any> {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
         const rid = route.paramMap.get('rid');
-        return this.backbone.getInspectionList(rid);
+        return this.backbone.getSpecificReport(rid);
     }
 }

@@ -17,7 +17,8 @@ export class ListCardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.MrS = this.route.snapshot.paramMap.get('s');
+        // this.MrS = this.route.snapshot.paramMap.get('s');
+        this.route.paramMap.subscribe(param => this.MrS = param.get('s'));
         this.route.data
             .subscribe((data: { cardListResolver: any }) => {
                 this.cards = data.cardListResolver.map(item => {

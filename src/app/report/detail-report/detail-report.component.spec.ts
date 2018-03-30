@@ -1,25 +1,44 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DetailReportComponent } from './detail-report.component';
+import {DetailReportComponent} from './detail-report.component';
+import {ActivatedRouteStub, RouterStub} from '../../mock/router.stub';
+import {ActivatedRoute, Router} from '@angular/router';
+import {LocalStorageService} from '../../services/local.storage.service';
 
 describe('DetailReportComponent', () => {
-  let component: DetailReportComponent;
-  let fixture: ComponentFixture<DetailReportComponent>;
+    let component: DetailReportComponent;
+    let fixture: ComponentFixture<DetailReportComponent>;
+    let activatedRouteStub: ActivatedRouteStub;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ DetailReportComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(() => {
+        activatedRouteStub = new ActivatedRouteStub({
+            name: '',
+            gender: '',
+            title: '',
+            create_time: '',
+            sample: ''
+        });
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DetailReportComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [DetailReportComponent],
+            providers: [
+                {provide: ActivatedRoute, useValue: activatedRouteStub},
+                {provide: Router, useClass: RouterStub},
+                {provide: LocalStorageService, useClass: LocalStorageService}
+            ]
+        })
+            .compileComponents();
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(DetailReportComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

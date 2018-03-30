@@ -1,25 +1,29 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DetailReportSnapshotComponent } from './detail-report-snapshot.component';
+import {DetailReportSnapshotComponent} from './detail-report-snapshot.component';
+import {LocalStorageService} from '../../services/local.storage.service';
 
 describe('DetailReportSnapshotComponent', () => {
-  let component: DetailReportSnapshotComponent;
-  let fixture: ComponentFixture<DetailReportSnapshotComponent>;
+    let component: DetailReportSnapshotComponent;
+    let fixture: ComponentFixture<DetailReportSnapshotComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ DetailReportSnapshotComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [DetailReportSnapshotComponent],
+            providers: [
+                {provide: LocalStorageService, useClass: LocalStorageService}
+            ]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DetailReportSnapshotComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(DetailReportSnapshotComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

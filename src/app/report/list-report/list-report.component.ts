@@ -25,18 +25,20 @@ export class ListReportComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.MrS = this.route.snapshot.paramMap.get('s');
-        this.patientName = this.route.snapshot.paramMap.get('n');
-        this.patientSex = +this.route.snapshot.paramMap.get('g');
         // 默认查询取值过去7天的记录
         const fd = moment().subtract(7, 'days');
         const td = moment();
         this.fromDate = {year: fd.get('year'), month: fd.get('month') + 1, day: fd.get('date')};
         this.toDate = {year: td.get('year'), month: td.get('month') + 1, day: td.get('date')};
-        // TODO: 如果MrS为空，则提示重新登录，或许可以重定向至错误提示页
-        if (typeof this.MrS === 'undefined' || this.MrS === null) {
-            this.errorMessage = '请重新登录';
-        }
+        this.route.paramMap.subscribe(params => {
+            this.MrS = params.get('s');
+            this.patientName = params.get('n');
+            this.patientSex = +params.get('g');
+            // TODO: 如果MrS为空，则提示重新登录，或许可以重定向至错误提示页
+            if (typeof this.MrS === 'undefined' || this.MrS === null) {
+                this.errorMessage = '请重新登录';
+            }
+        });
     }
 
     /**

@@ -31,15 +31,11 @@ export class VerificationCodeComponent implements OnInit, OnDestroy {
     }
 
     sendCode(): void {
-        console.log('===================== sendCode ======================');
-        console.log(this.phone);
         if (this.check(this.phone)) {
-            console.log('===================== Pass ======================');
             this.hasSent = true;
             this.sendMessageSubscription = this.backbone
                 .sendVerificationCode(this.phone)
                 .subscribe(result => {
-                    console.log(result);
                     if (result.Code === 'OK') {
                         this.countDown();
                     }

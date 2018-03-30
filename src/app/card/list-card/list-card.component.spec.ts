@@ -1,25 +1,40 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ListCardComponent } from './list-card.component';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {ListCardComponent} from './list-card.component';
+import {ActivatedRouteStub, RouterStub} from '../../mock/router.stub';
+import {ActivatedRoute, Router} from '@angular/router';
+import {BackboneService} from '../../services/backbone.service';
+import {BackboneServiceSpy} from '../../mock/backbone.service.spy';
 
 describe('ListCardComponent', () => {
-  let component: ListCardComponent;
-  let fixture: ComponentFixture<ListCardComponent>;
+    let component: ListCardComponent;
+    let fixture: ComponentFixture<ListCardComponent>;
+    let activatedRouteStub: ActivatedRouteStub;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ListCardComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(() => {
+        activatedRouteStub = new ActivatedRouteStub({s: ''});
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ListCardComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [ListCardComponent],
+            schemas: [NO_ERRORS_SCHEMA],
+            providers: [
+                {provide: ActivatedRoute, useValue: activatedRouteStub},
+                {provide: Router, useClass: RouterStub},
+                {provide: BackboneService, useClass: BackboneServiceSpy}
+            ]
+        })
+            .compileComponents();
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ListCardComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

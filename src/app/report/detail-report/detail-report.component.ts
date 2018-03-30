@@ -24,11 +24,13 @@ export class DetailReportComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.patientName = this.route.snapshot.paramMap.get('name');
-        this.patientGender = this.route.snapshot.paramMap.get('gender');
-        this.reportTitle = this.route.snapshot.paramMap.get('title');
-        this.reportDatetime = this.route.snapshot.paramMap.get('create_time');
-        this.reportSampleType = this.route.snapshot.paramMap.get('sample');
+        this.route.paramMap.subscribe(params => {
+            this.patientName = params.get('name');
+            this.patientGender = params.get('gender');
+            this.reportTitle = params.get('title');
+            this.reportDatetime = params.get('create_time');
+            this.reportSampleType = params.get('sample');
+        });
         this.route.data
             .subscribe((data: { reportInspectionResolver: any }) => {
                 this.inspections = data.reportInspectionResolver;

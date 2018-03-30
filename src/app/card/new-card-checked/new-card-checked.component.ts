@@ -26,11 +26,18 @@ export class NewCardCheckedComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.MrS = this.route.snapshot.paramMap.get('s');
-        this.patientName = this.route.snapshot.paramMap.get('name');
-        this.bindingPhone = this.route.snapshot.paramMap.get('phone');
-        this.cardid = this.route.snapshot.paramMap.get('cardid');
-        this.errorMessage = `验证码将发送到尾号为${ this.bindingPhone.substr(7, 4) }的手机上`;
+        this.route.paramMap.subscribe(params => {
+            this.MrS = params.get('s');
+            this.patientName = params.get('name');
+            this.bindingPhone = params.get('phone');
+            this.cardid = params.get('cardid');
+            this.errorMessage = `验证码将发送到尾号为${ this.bindingPhone.substr(7, 4) }的手机上`;
+        });
+        // this.MrS = this.route.snapshot.paramMap.get('s');
+        // this.patientName = this.route.snapshot.paramMap.get('name');
+        // this.bindingPhone = this.route.snapshot.paramMap.get('phone');
+        // this.cardid = this.route.snapshot.paramMap.get('cardid');
+        // this.errorMessage = `验证码将发送到尾号为${ this.bindingPhone.substr(7, 4) }的手机上`;
     }
 
     /**

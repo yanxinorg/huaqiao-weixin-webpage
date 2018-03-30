@@ -19,10 +19,13 @@ export class NewCardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.MrS = this.route.snapshot.paramMap.get('s');
-        if (typeof this.MrS === 'undefined' || this.MrS === null) {
-            this.errorMessage = '请重新登录';
-        }
+        // this.MrS = this.route.snapshot.paramMap.get('s');
+        this.route.paramMap.subscribe(param => {
+            this.MrS = param.get('s');
+            if (typeof this.MrS === 'undefined' || this.MrS === null) {
+                this.errorMessage = '请重新登录';
+            }
+        });
     }
 
     bindPatientIdCard(): void {
@@ -38,8 +41,7 @@ export class NewCardComponent implements OnInit {
                     }]).then();
                 } else if (data.code === -500) {
                     this.errorMessage = '该就诊卡已成功绑定，请勿重复操作。';
-                }
-                else {
+                } else {
                     this.errorMessage = '未找到要绑定的就诊卡';
                 }
             });

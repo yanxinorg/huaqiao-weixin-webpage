@@ -17,7 +17,10 @@ export class DetailUserComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.session = this.route.snapshot.paramMap.get('s');
+        // this.session = this.route.snapshot.paramMap.get('s');
+        this.route.paramMap.subscribe(params => {
+            this.session = params.get('s');
+        });
         this.route.data
             .subscribe((data: { userInfoResolver: any }) => {
                 const userInfo = data.userInfoResolver[0];

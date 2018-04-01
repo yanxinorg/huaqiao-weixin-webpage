@@ -31,8 +31,9 @@
             <span *ngIf="card.isDefault === 1" class="badge badge-warning">默认卡</span>
         </div>
     </div>
-    <div class="page-extra-part-bottom"></div>
 </div>
+<div class="page-extra-part-bottom"></div>
+<p *ngIf="cards.length === 0">您尚未添加就诊卡</p>
 
 <a class="btn btn-block btn-success add-new-card" [routerLink]="['/card/new', {s: MrS}]"
    routerLinkActive="active">

@@ -1,15 +1,23 @@
 import {Component, OnInit} from '@angular/core';
 import {
-    ControlAnchor, GeolocationControlOptions, MapOptions, MapTypeControlOptions, MapTypeControlType, MarkerOptions,
-    NavigationControlOptions, NavigationControlType,
-    Point, ScaleControlOptions
+    ControlAnchor,
+    GeolocationControlOptions,
+    MapOptions,
+    MapTypeControlOptions,
+    MapTypeControlType,
+    MarkerOptions,
+    NavigationControlOptions,
+    NavigationControlType,
+    Point,
+    ScaleControlOptions
 } from 'angular2-baidu-map';
 // import {WxJSSDKService} from '../../services/wx.js-sdk.service';
 // import {BackboneService} from '../../services/backbone.service';
 
 const name = '莆田华侨医院';
-const address = '地址：莆田市涵江区江口镇石庭西路6号';
-const phone = '电话：(0594)3795120';
+const address = '地址：莆田市涵江区江口镇石庭西路869号';
+const emergency = '急诊：(0594)3795120';
+const consult = '咨询：(0594)6725120';
 const longitude = 119.160142;
 const latitude = 25.480114;
 const zoom = 17;
@@ -143,9 +151,9 @@ export class MapBaiduComponent implements OnInit {
          *  output    表示输出类型，web上必须指定为html才能展现地图产品结果。    必选
          * @type {string}
          */
-        const content = `${ address }<br />${ phone }<br /><hr>
+        const content = `${ address }<br />${ emergency }<br />${ consult }<br /><hr>
         <a class="btn btn-outline-primary btn-sm" href="http://api.map.baidu.com/marker?
-        location=${ latitude },${ longitude }&title=${ name }&content=${ address }&output=html" target="_blank" >打开百度地图</a>`;
+        location=${ latitude },${ longitude }&title=${ name }&content=${ address }&output=html" target="_blank" >导航</a>`;
         map.openInfoWindow(
             new window.BMap.InfoWindow(
                 content,

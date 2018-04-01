@@ -18,7 +18,9 @@ import {DetailCardComponent} from './card/detail-card/detail-card.component';
 import {DetailUserComponent} from './user/detail-user/detail-user.component';
 import {NewCardComponent} from './card/new-card/new-card.component';
 import {DetailReportSnapshotComponent} from './report/detail-report-snapshot/detail-report-snapshot.component';
+import {MapTencentComponent} from './tools/map-tencent/map-tencent.component';
 import {MapBaiduComponent} from './tools/map-baidu/map-baidu.component';
+import {MapAliComponent} from './tools/map-ali/map-ali.component';
 import {NewCardCheckedComponent} from './card/new-card-checked/new-card-checked.component';
 import {UnbindCardComponent} from './card/unbind-card/unbind-card.component';
 
@@ -34,6 +36,8 @@ import {UnbindCardComponent} from './card/unbind-card/unbind-card.component';
         DetailUserComponent,
         DetailReportSnapshotComponent,
         MapBaiduComponent,
+        MapTencentComponent,
+        MapAliComponent,
         UnbindCardComponent
     ],
     imports: [

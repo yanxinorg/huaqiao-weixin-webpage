@@ -11,15 +11,14 @@ export class ActivatedRouteStub {
     private subject = new ReplaySubject<ParamMap>();
     /** The mock paramMap observable */
     readonly paramMap = this.subject.asObservable();
+    /**
+     * Subject that emits the most recent item it has observed and all subsequent observed items to each subscribed Observer.
+     */
+        // private _repo = BehaviorSubject.create('initialize');
     private _repo = new BehaviorSubject(
-        {
-            cardListResolver: [],
-            removeCardResolver: {},
-            reportInspectionResolver: [],
-            userInfoResolver: []
-        }
+        {}
     );
-    public data = this._repo.asObservable();
+    readonly data = this._repo.asObservable();
 
     constructor(initialParams?: Params) {
         this.setParamMap(initialParams);
@@ -28,5 +27,10 @@ export class ActivatedRouteStub {
     /** Set the paramMap observables's next value */
     setParamMap(params?: Params) {
         this.subject.next(convertToParamMap(params));
+    }
+
+    /** Set the resolver */
+    setResolver(data?: any) {
+        this._repo.next(data);
     }
 }

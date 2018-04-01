@@ -14,6 +14,8 @@ import {CardListResolver, RemoveCardResolver} from './services/resolvers/card.re
 import {NewCardCheckedComponent} from './card/new-card-checked/new-card-checked.component';
 import {UnbindCardComponent} from './card/unbind-card/unbind-card.component';
 import {UserInfoResolver} from './services/resolvers/user.resolver';
+import {MapTencentComponent} from './tools/map-tencent/map-tencent.component';
+import {MapAliComponent} from './tools/map-ali/map-ali.component';
 
 const __ROUTES__: Routes = [
     {
@@ -85,6 +87,14 @@ const __ROUTES__: Routes = [
             {
                 path: 'map',
                 component: MapBaiduComponent
+            },
+            {
+                path: 'tencent',
+                component: MapTencentComponent
+            },
+            {
+                path: 'ali',
+                component: MapAliComponent
             }
         ]
     }

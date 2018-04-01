@@ -11,8 +11,15 @@ describe('DetailUserComponent', () => {
     let activatedRouteStub: ActivatedRouteStub;
 
     beforeEach(() => {
-        activatedRouteStub = new ActivatedRouteStub({
-            s: ''
+        activatedRouteStub = new ActivatedRouteStub({s: ''});
+        activatedRouteStub.setResolver({
+            userInfoResolver: [
+                {
+                    nickname: 'TEST-1',
+                    sex: 1,
+                    headimgurl: ''
+                }
+            ]
         });
     });
 

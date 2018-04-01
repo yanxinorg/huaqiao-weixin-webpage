@@ -1,0 +1,19 @@
+<!--   定义地图显示容器   -->
+<div id="ali-map" [style.height]="mapViewHeight"></div>
+<div id="info">
+    <div class="wrapper">
+        <div class="d-flex flex-row justify-content-between">
+            <div class="info-title">
+                {{ name }}
+            </div>
+            <button type="button" class="close" aria-label="Close" (click)="closeInfoWindow()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="info-content">
+            <div>{{ address }}</div>
+            <div>{{ emergency }}</div>
+            <div>{{ consult }}</div>
+        </div>
+    </div>
+</div>

@@ -25,10 +25,6 @@ export class UnbindCardComponent implements OnInit {
     }
 
     ngOnInit() {
-        // this.cardid = this.route.snapshot.paramMap.get('cardid');
-        // this.bindingPhone = this.route.snapshot.paramMap.get('phone');
-        // this.MrS = this.route.snapshot.paramMap.get('s');
-        // this.errorMessage = `验证码已发送到手机尾号${ this.bindingPhone.substr(7, 4) }的手机上，请注意查收！`;
         this.route.paramMap.subscribe(params => {
             this.cardid = params.get('cardid');
             this.bindingPhone = params.get('phone');

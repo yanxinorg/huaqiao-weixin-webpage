@@ -17,8 +17,10 @@ export class ListCardComponent implements OnInit {
     }
 
     ngOnInit() {
-        // this.MrS = this.route.snapshot.paramMap.get('s');
-        this.route.paramMap.subscribe(param => this.MrS = param.get('s'));
+        this.route.paramMap
+            .subscribe(param => {
+                this.MrS = param.get('s');
+            });
         this.route.data
             .subscribe((data: { cardListResolver: any }) => {
                 this.cards = data.cardListResolver.map(item => {
@@ -33,6 +35,8 @@ export class ListCardComponent implements OnInit {
     }
 
     setAsDefaultPatientIdCard(cardid: string, s: string): void {
+        console.log('==============================================');
+        console.log('=========  setAsDefaultPatientIdCard  ========');
         this.backbone.setAsDefaultPatientIdCard(s, cardid)
             .subscribe(data => {
                 if (data.code === 0) {

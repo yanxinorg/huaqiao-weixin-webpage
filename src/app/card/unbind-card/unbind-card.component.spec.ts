@@ -21,6 +21,7 @@ describe('UnbindCardComponent', () => {
             phone: '',
             cardid: ''
         });
+        activatedRouteStub.setResolver({removeCardResolver: {}});
     });
 
     beforeEach(async(() => {

@@ -18,6 +18,7 @@ describe('DetailReportComponent', () => {
             create_time: '',
             sample: ''
         });
+        activatedRouteStub.setResolver({reportInspectionResolver: []});
     });
 
     beforeEach(async(() => {

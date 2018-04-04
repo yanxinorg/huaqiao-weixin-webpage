@@ -31,12 +31,6 @@ export class UnbindCardComponent implements OnInit {
             this.MrS = params.get('s');
             this.errorMessage = `验证码已发送到手机尾号${ this.bindingPhone.substr(7, 4) }的手机上，请注意查收！`;
         });
-        // this.verificationSms = {
-        //     Message: 'OK',
-        //     RequestId: 'BC511054-D97B-4F01-BB0C-FE251DFF85F2',
-        //     BizId: '241302421377167754^0',
-        //     Code: 'OK'
-        // };
         this.route.data
             .subscribe((data: { removeCardResolver: any }) => {
                 if (data.removeCardResolver.hasOwnProperty('Message') && data.removeCardResolver.Message === 'OK') {

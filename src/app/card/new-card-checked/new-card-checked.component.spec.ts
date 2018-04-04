@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {NewCardCheckedComponent} from './new-card-checked.component';
-import {ActivatedRouteStub, RouterStub} from '../../mock/router.stub';
+import {ActivatedRouteStub, RouterSpy} from '../../mock/router.stub';
 import {BackboneServiceSpy} from '../../mock/backbone.service.spy';
 import {BackboneService} from '../../services/backbone.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -33,7 +33,7 @@ describe('NewCardCheckedComponent', () => {
             schemas: [NO_ERRORS_SCHEMA],
             providers: [
                 {provide: ActivatedRoute, useValue: activatedRouteStub},
-                {provide: Router, useClass: RouterStub},
+                {provide: Router, useClass: RouterSpy},
                 {provide: NgbModal, useClass: NgbModalStub},
                 {provide: BackboneService, useClass: BackboneServiceSpy}
             ]

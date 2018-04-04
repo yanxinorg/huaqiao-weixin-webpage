@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {DetailReportComponent} from './detail-report.component';
-import {ActivatedRouteStub, RouterStub} from '../../mock/router.stub';
+import {ActivatedRouteStub, RouterSpy} from '../../mock/router.stub';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LocalStorageService} from '../../services/local.storage.service';
 
@@ -18,7 +18,6 @@ describe('DetailReportComponent', () => {
             create_time: '',
             sample: ''
         });
-        activatedRouteStub.setResolver({reportInspectionResolver: []});
     });
 
     beforeEach(async(() => {
@@ -26,7 +25,7 @@ describe('DetailReportComponent', () => {
             declarations: [DetailReportComponent],
             providers: [
                 {provide: ActivatedRoute, useValue: activatedRouteStub},
-                {provide: Router, useClass: RouterStub},
+                {provide: Router, useClass: RouterSpy},
                 {provide: LocalStorageService, useClass: LocalStorageService}
             ]
         })

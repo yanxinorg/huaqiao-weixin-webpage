@@ -1,8 +1,24 @@
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {convertToParamMap, ParamMap, Params} from '@angular/router';
+import {Directive, Input} from '@angular/core';
+// import {of} from 'rxjs/observable/of';
 
-export class RouterStub {
+export class RouterSpy {
+    // navigate = jasmine.createSpy('navigate').and.returnValue(of({}));
+}
+
+@Directive({
+    selector: '[routerLink]',
+    host: {'(click)': 'onClick()'}
+})
+export class RouterLinkDirectiveStub {
+    @Input('routerLink') linkParams: any;
+    navigatedTo: any = null;
+
+    onClick() {
+        this.navigatedTo = this.linkParams;
+    }
 }
 
 export class ActivatedRouteStub {

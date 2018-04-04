@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ListReportComponent} from './list-report.component';
-import {ActivatedRouteStub, RouterStub} from '../../mock/router.stub';
+import {ActivatedRouteStub, RouterSpy} from '../../mock/router.stub';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BackboneService} from '../../services/backbone.service';
@@ -30,7 +30,7 @@ describe('ListReportComponent', () => {
             schemas: [NO_ERRORS_SCHEMA],
             providers: [
                 {provide: ActivatedRoute, useValue: activatedRouteStub},
-                {provide: Router, useClass: RouterStub},
+                {provide: Router, useClass: RouterSpy},
                 {provide: BackboneService, useClass: BackboneServiceSpy}
             ]
         })

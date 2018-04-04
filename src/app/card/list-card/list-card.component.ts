@@ -35,8 +35,6 @@ export class ListCardComponent implements OnInit {
     }
 
     setAsDefaultPatientIdCard(cardid: string, s: string): void {
-        console.log('==============================================');
-        console.log('=========  setAsDefaultPatientIdCard  ========');
         this.backbone.setAsDefaultPatientIdCard(s, cardid)
             .subscribe(data => {
                 if (data.code === 0) {

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import {UnbindCardComponent} from './unbind-card.component';
 import {ActivatedRouteStub, RouterSpy} from '../../mock/router.stub';
@@ -10,6 +10,7 @@ import {NgbModalStub} from '../../mock/modal.stub';
 import {BackboneService} from '../../services/backbone.service';
 import {BackboneServiceSpy} from '../../mock/backbone.service.spy';
 import {click} from '../../mock/helper';
+import {LocalStorageService} from '../../services/local.storage.service';
 
 describe('UnbindCardComponent', () => {
     let component: UnbindCardComponent;
@@ -42,6 +43,7 @@ describe('UnbindCardComponent', () => {
                 {provide: ActivatedRoute, useValue: activatedRouteStub},
                 {provide: Router, useClass: RouterSpy},
                 {provide: NgbModal, useClass: NgbModalStub},
+                {provide: LocalStorageService, useClass: LocalStorageService},
                 {provide: BackboneService, useClass: BackboneServiceSpy}
             ]
         })
@@ -58,6 +60,14 @@ describe('UnbindCardComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
+    it('点击解绑应触发解绑流程', fakeAsync(() => {
+        click(page.submit);
+        tick();
+
+        fixture.detectChanges();
+        expect(page.alert).toBeNull('应不再显示错误提示框');
+    }));
 });
 
 /////////// Helpers /////

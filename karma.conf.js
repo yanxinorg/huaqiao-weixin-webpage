@@ -27,8 +27,10 @@ module.exports = function (config) {
         ],
         // list of files to exclude
         exclude: [
-            // 'src/**/*.spec.ts',
-            // "src/**/*.d.ts"
+            "src/app/**/*.module.ts",
+            "src/app/tools/map-ali/*.ts",
+            "src/app/tools/map-tencent/*.ts",
+            "src/app/services/resolvers/**"
         ],
         preprocessors: {
             '**/*.ts': ['karma-typescript']

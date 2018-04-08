@@ -18,6 +18,7 @@ describe('DetailReportComponent', () => {
             create_time: '',
             sample: ''
         });
+        activatedRouteStub.setResolver({reportInspectionResolver: []});
     });
 
     beforeEach(async(() => {
@@ -41,4 +42,17 @@ describe('DetailReportComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
+    // it('保存至相册', async(() => {
+    //     const routerSpy = <any> fixture.debugElement.injector.get(Router);
+    //     console.log(routerSpy);
+    //
+    //     click(fixture.debugElement.query(By.css('button')));
+    //     fixture.detectChanges();
+    //
+    //     fixture.whenStable().then(() => {
+    //         expect(routerSpy.navigate).toHaveBeenCalled();
+    //         console.log(routerSpy.navigate.calls.any());
+    //     });
+    // }));
 });

@@ -2,10 +2,16 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {convertToParamMap, ParamMap, Params} from '@angular/router';
 import {Directive, Input} from '@angular/core';
-// import {of} from 'rxjs/observable/of';
+import {asyncData} from './helper';
 
 export class RouterSpy {
-    // navigate = jasmine.createSpy('navigate').and.returnValue(of({}));
+    // navigate = jasmine.createSpy('navigate').and.returnValue(asyncData(true));
+    navigate = jasmine.createSpy('navigate').and.callFake(
+        (params) => {
+            console.log(params);
+            return asyncData(true);
+        }
+    );
 }
 
 @Directive({
@@ -30,7 +36,6 @@ export class ActivatedRouteStub {
     /**
      * Subject that emits the most recent item it has observed and all subsequent observed items to each subscribed Observer.
      */
-        // private _repo = BehaviorSubject.create('initialize');
     private _repo = new BehaviorSubject(
         {}
     );

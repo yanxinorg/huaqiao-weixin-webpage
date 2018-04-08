@@ -6,6 +6,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {BackboneService} from '../../services/backbone.service';
 import {BackboneServiceSpy} from '../../mock/backbone.service.spy';
 import {By} from '@angular/platform-browser';
+import {click} from '../../mock/helper';
+import {LocalStorageService} from '../../services/local.storage.service';
 
 describe('ListCardComponent', () => {
     let component: ListCardComponent;
@@ -44,6 +46,7 @@ describe('ListCardComponent', () => {
                 {provide: ActivatedRoute, useValue: activatedRouteStub},
                 // {provide: Router, useClass: RouterSpy},
                 {provide: Router, useValue: routerSpy},
+                {provide: LocalStorageService, useClass: LocalStorageService},
                 {provide: BackboneService, useClass: BackboneServiceSpy}
             ]
         })
@@ -101,22 +104,21 @@ describe('ListCardComponent', () => {
         expect(cards.children[0].querySelector('span').textContent).toEqual('默认卡', '第一张就诊卡显示"默认卡"的标志');
     }));
 
-    // it('应跳转至解绑流程【 当点击"解绑"后 】', fakeAsync(() => {
-    //     data[0].isShowMore = true;
-    //     fixture.detectChanges();
-    //     const bannerDe: DebugElement = fixture.debugElement;
-    //     const paragraphDe = bannerDe.query(By.css('.more'));
-    //     const unbindBtnDe = paragraphDe.children[1];
-    //     console.log(unbindBtnDe);
-    //     unbindBtnDe.triggerEventHandler('click', null);
-    //     tick();                     // flush the observable
-    //     // args passed to router.navigateByUrl() spy
-    //     const router = fixture.debugElement.injector.get(Router);
-    //     const spy = router.navigate as jasmine.Spy;
-    //     const navArgs = spy.calls.first();
-    //     console.log(navArgs);
-    //     const btnList: HTMLElement = paragraphDe.nativeElement;
-    // }));
+    it('应跳转至解绑流程【 当点击"解绑"后 】', fakeAsync(() => {
+        data[0].isShowMore = true;
+        fixture.detectChanges();
+        const bannerDe: DebugElement = fixture.debugElement;
+        const paragraphDe = bannerDe.query(By.css('.more'));
+        const unbindBtnDe = paragraphDe.children[1];
+
+        click(unbindBtnDe);
+        tick();                     // flush the observable
+
+        const router = fixture.debugElement.injector.get(Router);
+        const spy = router.navigate as jasmine.Spy;
+        expect(spy.calls.any()).toBeTruthy('应路由至新Component');
+        expect(spy.calls.argsFor(0)[0][0]).toBe('/card/unbind', '路由路径应为/card/unbind');
+    }));
 
     it('应跳转至添加就诊卡流程【 当点击"添加就诊卡"后 】', () => {
         // find DebugElements with an attached RouterLinkStubDirective
@@ -126,7 +128,7 @@ describe('ListCardComponent', () => {
         const routerLinks = linkDes.map(de => de.injector.get(RouterLinkDirectiveStub));
         expect(routerLinks.length).toBe(1, '应该显示“添加就诊卡”的按键');
         expect(routerLinks[0].linkParams[0]).toBe('/card/new', '检查路由的第一个参数应为路径 /card/new');
-        expect(routerLinks[0].linkParams[1].s).toBe('test-session', '检查路由的第二个参数应为参数 test-session');
+        // expect(routerLinks[0].linkParams[1].s).toBe('test-session', '检查路由的第二个参数应为参数 test-session');
         expect(routerLinks[0].navigatedTo).toBeNull('未跳转前，navigatedTo应为null');
         /**
          *   点击 "添加就诊卡" 后
@@ -134,6 +136,6 @@ describe('ListCardComponent', () => {
         linkDes[0].triggerEventHandler('click', null);
         fixture.detectChanges();
         expect(routerLinks[0].navigatedTo[0]).toBe('/card/new', '检查路由的第一个参数应为路径 /card/new');
-        expect(routerLinks[0].navigatedTo[1].s).toBe('test-session', '检查路由的第二个参数应为参数 test-session');
+        // expect(routerLinks[0].navigatedTo[1].s).toBe('test-session', '检查路由的第二个参数应为参数 test-session');
     });
 });

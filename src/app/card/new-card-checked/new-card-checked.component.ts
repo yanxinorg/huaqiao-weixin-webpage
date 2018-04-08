@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {SmsMessage} from '../../services/backbone.structure';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {BackboneService} from '../../services/backbone.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {HintModalComponent} from '../../widget/hint-modal/hint-modal.component';
+import {LocalStorageService} from '../../services/local.storage.service';
 
 @Component({
     selector: 'app-new-card-checked',
@@ -19,25 +20,25 @@ export class NewCardCheckedComponent implements OnInit {
     verificationSms: SmsMessage;
     errorMessage = '';
 
-    constructor(private route: ActivatedRoute,
-                private router: Router,
+    constructor(private router: Router,
                 private modalService: NgbModal,
+                private localStorage: LocalStorageService,
                 private backbone: BackboneService) {
     }
 
     ngOnInit() {
-        this.route.paramMap.subscribe(params => {
-            this.MrS = params.get('s');
-            this.patientName = params.get('name');
-            this.bindingPhone = params.get('phone');
-            this.cardid = params.get('cardid');
-            this.errorMessage = `验证码将发送到尾号为${ this.bindingPhone.substr(7, 4) }的手机上`;
-        });
-        // this.MrS = this.route.snapshot.paramMap.get('s');
-        // this.patientName = this.route.snapshot.paramMap.get('name');
-        // this.bindingPhone = this.route.snapshot.paramMap.get('phone');
-        // this.cardid = this.route.snapshot.paramMap.get('cardid');
-        // this.errorMessage = `验证码将发送到尾号为${ this.bindingPhone.substr(7, 4) }的手机上`;
+        // this.route.paramMap.subscribe(params => {
+        //     this.MrS = params.get('s');
+        //     this.patientName = params.get('name');
+        //     this.bindingPhone = params.get('phone');
+        //     this.cardid = params.get('cardid');
+        //     this.errorMessage = `点击发送验证码到尾号为${ this.bindingPhone.substr(7, 4) }的手机上`;
+        // });
+        this.MrS = this.localStorage.get('MrS');
+        this.patientName = this.localStorage.get('Name');
+        this.bindingPhone = this.localStorage.get('Phone');
+        this.cardid = this.localStorage.get('CardID');
+        this.errorMessage = `点击发送验证码到尾号为${ this.bindingPhone.substr(7, 4) }的手机上`;
     }
 
     /**
@@ -47,11 +48,9 @@ export class NewCardCheckedComponent implements OnInit {
      */
     sentVerificationCodeCompleted(response: SmsMessage): void {
         if (response.Code === 'OK') {
-            this.verificationSms = response;
             // 成功发送验证码
             // 记录   requestId, bizId
-            // this.newUser.requestId = response.RequestId;
-            // this.newUser.bizId = response.BizId;
+            this.verificationSms = response;
         } else {
             this.errorMessage = response.Message;
         }
@@ -69,7 +68,7 @@ export class NewCardCheckedComponent implements OnInit {
                 this.MrS,
                 this.cardid)
                 .subscribe(data => {
-                    console.log(data);
+                    this.errorMessage = '';
                     if (data.code === -100) {
                         this.openHintModal('出错了', `就诊卡${ this.cardid }已经绑定过了`);
                     } else {
@@ -84,7 +83,6 @@ export class NewCardCheckedComponent implements OnInit {
      */
     public openHintModal(title: string, content: string) {
         const hintModalRef = this.modalService.open(HintModalComponent);
-        console.log('openHintModal');
         hintModalRef.componentInstance.title = title;
         hintModalRef.componentInstance.content = content;
         hintModalRef.result.then(

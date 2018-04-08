@@ -55,6 +55,7 @@ export class UnbindCardComponent implements OnInit {
                 .unbindPatientIdCard(this.verificationSms, this.bindingPhone, this.verificationCode, this.cardid)
                 .subscribe(data => {
                     console.log(data);
+                    this.errorMessage = '';
                     if (data.code === 0) {
                         this.openHintModal('成功', `就诊卡${ this.cardid }已解绑`);
                     } else if (data.code === -300) {

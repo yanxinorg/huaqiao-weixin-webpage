@@ -20,7 +20,6 @@ export class DetailUserComponent implements OnInit {
 
     ngOnInit() {
         this.route.paramMap.subscribe(params => {
-            // this.session = params.get('s');
             this.localStorage.set('MrS', params.get('s'));
         });
         this.route.data

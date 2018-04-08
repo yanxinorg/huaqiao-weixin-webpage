@@ -4,6 +4,7 @@ import {DetailUserComponent} from './detail-user.component';
 import {ActivatedRouteStub} from '../../mock/router.stub';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {LocalStorageService} from '../../services/local.storage.service';
 
 describe('DetailUserComponent', () => {
     let component: DetailUserComponent;
@@ -28,7 +29,8 @@ describe('DetailUserComponent', () => {
             declarations: [DetailUserComponent],
             schemas: [NO_ERRORS_SCHEMA],
             providers: [
-                {provide: ActivatedRoute, useValue: activatedRouteStub}
+                {provide: ActivatedRoute, useValue: activatedRouteStub},
+                {provide: LocalStorageService, useClass: LocalStorageService}
             ]
         })
             .compileComponents();

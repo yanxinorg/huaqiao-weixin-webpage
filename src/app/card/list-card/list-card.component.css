@@ -8,11 +8,10 @@
     padding: 0.8rem;
 }
 
-.functional-area img {
-    width: 1.5rem;
-    height: 1.5rem;
-    cursor: pointer;
-    margin: 0 0.5rem;
+.attached {
+    font-size: 1.5em;
+    color: #696969;
+    margin: 0 1rem;
 }
 
 .subtitle, .balance {
@@ -37,6 +36,7 @@
     position: absolute;
     float: right;
     z-index: 9999;
+    margin-top: 5rem;
 }
 
 .add-new-card {

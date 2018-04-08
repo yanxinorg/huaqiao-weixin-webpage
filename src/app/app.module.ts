@@ -8,6 +8,7 @@ import {WidgetModule} from './widget/widget.module';
 
 import {LocalStorageService} from './services/local.storage.service';
 import {BackboneService} from './services/backbone.service';
+import {AuthGuardService} from './services/auth-guard.service';
 
 import {AppComponent} from './app.component';
 import {AppRouterModule} from './app.router.module';
@@ -51,7 +52,8 @@ import {UnbindCardComponent} from './card/unbind-card/unbind-card.component';
     ],
     providers: [
         LocalStorageService,
-        BackboneService
+        BackboneService,
+        AuthGuardService
     ],
     bootstrap: [AppComponent]
 })

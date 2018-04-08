@@ -3,22 +3,22 @@
         <!--<div>-->
         <!--<img class="patient-head-img" src="{{ patientHeadImage }}">-->
         <!--</div>-->
-        <div class="patient-name">{{ patientName }}</div>
+        <div class="patient-name">{{ reportDetail.name }}</div>
         <div class="patient-brief">
-            <div class="patient-gender" *ngIf="patientGender === '1'">男</div>
-            <div class="patient-gender" *ngIf="patientGender === '2'">女</div>
-            <div class="patient-age">{{ patientAge }}</div>
+            <div class="patient-gender" *ngIf="reportDetail.gender === 1">男</div>
+            <div class="patient-gender" *ngIf="reportDetail.gender === 2">女</div>
+            <div class="patient-age">{{ reportDetail.age }}</div>
         </div>
     </div>
     <div class="report-brief">
         <div class="">
-            <div id="title" class="report-title">报告标题: {{ reportTitle }}</div>
+            <div id="title" class="report-title">报告标题: {{ reportDetail.title }}</div>
         </div>
         <div>
-            <div id="datetime" class="report-datetime">报告日期: {{ reportDatetime }}</div>
+            <div id="datetime" class="report-datetime">报告日期: {{ reportDetail.create_time }}</div>
         </div>
         <div>
-            <div id="sample-type" class="report-sample-type">标本类型: {{ reportSampleType }}</div>
+            <div id="sample-type" class="report-sample-type">标本类型: {{ reportDetail.sample }}</div>
         </div>
     </div>
 </div>

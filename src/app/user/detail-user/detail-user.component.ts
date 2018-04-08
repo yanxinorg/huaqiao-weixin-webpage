@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {LocalStorageService} from '../../services/local.storage.service';
 
 @Component({
     selector: 'app-detail-user',
@@ -11,14 +12,16 @@ export class DetailUserComponent implements OnInit {
     name = 'XXXX';
     gender = 1;
     // age = 'XX岁';
-    session: string;
+    // session: string;
 
-    constructor(private route: ActivatedRoute) {
+    constructor(private route: ActivatedRoute,
+                private localStorage: LocalStorageService) {
     }
 
     ngOnInit() {
         this.route.paramMap.subscribe(params => {
-            this.session = params.get('s');
+            // this.session = params.get('s');
+            this.localStorage.set('MrS', params.get('s'));
         });
         this.route.data
             .subscribe((data: { userInfoResolver: any }) => {

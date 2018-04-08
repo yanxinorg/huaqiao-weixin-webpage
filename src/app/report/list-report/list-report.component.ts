@@ -3,6 +3,8 @@ import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
 import {BackboneService} from '../../services/backbone.service';
+import {LocalStorageService} from '../../services/local.storage.service';
+import {ReportDetail} from '../../services/backbone.structure';
 
 @Component({
     selector: 'app-list-report',
@@ -21,6 +23,7 @@ export class ListReportComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
+                private localStorage: LocalStorageService,
                 private backbone: BackboneService) {
     }
 
@@ -96,14 +99,26 @@ export class ListReportComponent implements OnInit {
         return false;
     }
 
+    /**
+     * 跳转至报告单详情
+     * @param id
+     * @param title
+     * @param sample
+     * @param createTime
+     */
     toReportDetail(id: number, title: string, sample: string, createTime: string) {
-        this.router.navigate(['/report/detail', {
-            rid: id,
-            name: this.patientName,
-            gender: this.patientSex,
-            title: title,
-            sample: sample,
-            create_time: createTime
-        }]).then();
+        this.localStorage.set('MrS', this.MrS);
+        this.localStorage.setObject('Report', new ReportDetail(
+            id, this.patientName, this.patientSex, title, createTime, sample
+        ));
+        this.router.navigate(['/report/detail']).then();
+        // this.router.navigate(['/report/detail', {
+        //     rid: id,
+        //     name: this.patientName,
+        //     gender: this.patientSex,
+        //     title: title,
+        //     sample: sample,
+        //     create_time: createTime
+        // }]).then();
     }
 }

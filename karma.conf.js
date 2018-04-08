@@ -44,58 +44,58 @@ module.exports = function (config) {
                 lib: ["es2017", "dom"]
             }
         },
-        reporters: ['progress', 'karma-typescript', 'coverage-istanbul'],
-        // reporters: ['progress', 'kjhtml'],
+        reporters: ['progress', 'kjhtml', 'karma-typescript'],
+        // reporters: ['progress', 'kjhtml', 'coverage-istanbul'],
         /**
          *  参考链接
          *  https://www.npmjs.com/package/karma-coverage-istanbul-reporter
          *  https://github.com/istanbuljs/istanbuljs/blob/aae256fb8b9a3d19414dcf069c592e88712c32c6/packages/istanbul-api/lib/config.js#L33-L39
          */
-        coverageIstanbulReporter: {
-            // reports can be any that are listed here:
-            // https://github.com/istanbuljs/istanbuljs/tree/aae256fb8b9a3d19414dcf069c592e88712c32c6/packages/istanbul-reports/lib
-            reports: ['html', 'text-summary'],
-            // base output directory. If you include %browser% in the path it will be replaced with the karma browser name
-            dir: path.join(__dirname, 'coverage'),
-            // Combines coverage information from multiple browsers into one report rather than outputting a report
-            // for each browser.
-            combineBrowserReports: true,
-            // if using webpack and pre-loaders, work around webpack breaking the source path
-            fixWebpackSourcePaths: true,
-            // stop istanbul outputting messages like `File [${filename}] ignored, nothing could be mapped`
-            skipFilesWithNoCoverage: false,
-            // Most reporters accept additional config options. You can pass these through the `report-config` option
-            'report-config': {
-                // all options available at:
-                // https://github.com/istanbuljs/istanbuljs/blob/aae256fb8b9a3d19414dcf069c592e88712c32c6/packages/istanbul-reports/lib/html/index.js#L135-L137
-                html: {
-                    // outputs the report in ./coverage/html
-                    subdir: 'istanbul'
-                }
-            }
-            // enforce percentage thresholds
-            // anything under these percentages will cause karma to fail with an exit code of 1 if not running in watch mode
-            // thresholds: {
-            //     emitWarning: false, // set to `true` to not fail the test command when thresholds are not met
-            //     global: {           // thresholds for all files
-            //         statements: 100,
-            //         lines: 100,
-            //         branches: 100,
-            //         functions: 100
-            //     },
-            //     each: {             // thresholds per file
-            //         statements: 100,
-            //         lines: 100,
-            //         branches: 100,
-            //         functions: 100,
-            //         overrides: {
-            //             'baz/component/**/*.js': {
-            //                 statements: 98
-            //             }
-            //         }
-            //     }
-            // }
-        },
+        // coverageIstanbulReporter: {
+        //     // reports can be any that are listed here:
+        //     // https://github.com/istanbuljs/istanbuljs/tree/aae256fb8b9a3d19414dcf069c592e88712c32c6/packages/istanbul-reports/lib
+        //     reports: ['html', 'text-summary'],
+        //     // base output directory. If you include %browser% in the path it will be replaced with the karma browser name
+        //     dir: path.join(__dirname, 'coverage'),
+        //     // Combines coverage information from multiple browsers into one report rather than outputting a report
+        //     // for each browser.
+        //     combineBrowserReports: true,
+        //     // if using webpack and pre-loaders, work around webpack breaking the source path
+        //     fixWebpackSourcePaths: true,
+        //     // stop istanbul outputting messages like `File [${filename}] ignored, nothing could be mapped`
+        //     skipFilesWithNoCoverage: false,
+        //     // Most reporters accept additional config options. You can pass these through the `report-config` option
+        //     'report-config': {
+        //         // all options available at:
+        //         // https://github.com/istanbuljs/istanbuljs/blob/aae256fb8b9a3d19414dcf069c592e88712c32c6/packages/istanbul-reports/lib/html/index.js#L135-L137
+        //         html: {
+        //             // outputs the report in ./coverage/html
+        //             subdir: 'istanbul'
+        //         }
+        //     },
+        //     // enforce percentage thresholds
+        //     // anything under these percentages will cause karma to fail with an exit code of 1 if not running in watch mode
+        //     thresholds: {
+        //         emitWarning: false, // set to `true` to not fail the test command when thresholds are not met
+        //         global: {           // thresholds for all files
+        //             statements: 100,
+        //             lines: 100,
+        //             branches: 100,
+        //             functions: 100
+        //         },
+        //         each: {             // thresholds per file
+        //             statements: 100,
+        //             lines: 100,
+        //             branches: 100,
+        //             functions: 100,
+        //             overrides: {
+        //                 'baz/component/**/*.js': {
+        //                     statements: 98
+        //                 }
+        //             }
+        //         }
+        //     }
+        // },
         // angularCli: {
         //     environment: 'dev'
         // },
@@ -104,6 +104,6 @@ module.exports = function (config) {
         logLevel: config.LOG_INFO,
         autoWatch: true,
         browsers: ['Chrome'],
-        singleRun: true
+        singleRun: false
     });
 };

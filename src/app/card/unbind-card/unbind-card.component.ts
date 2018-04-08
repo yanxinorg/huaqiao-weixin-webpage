@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {BackboneService} from '../../services/backbone.service';
 import {HintModalComponent} from '../../widget/hint-modal/hint-modal.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {LocalStorageService} from '../../services/local.storage.service';
 
 @Component({
     selector: 'app-unbind-card',
@@ -21,16 +22,21 @@ export class UnbindCardComponent implements OnInit {
     constructor(private route: ActivatedRoute,
                 private router: Router,
                 private modalService: NgbModal,
+                private localStorage: LocalStorageService,
                 private backbone: BackboneService) {
     }
 
     ngOnInit() {
-        this.route.paramMap.subscribe(params => {
-            this.cardid = params.get('cardid');
-            this.bindingPhone = params.get('phone');
-            this.MrS = params.get('s');
-            this.errorMessage = `验证码已发送到手机尾号${ this.bindingPhone.substr(7, 4) }的手机上，请注意查收！`;
-        });
+        // this.route.paramMap.subscribe(params => {
+        //     this.cardid = params.get('cardid');
+        //     this.bindingPhone = params.get('phone');
+        //     this.MrS = params.get('s');
+        //     this.errorMessage = `验证码已发送到手机尾号${ this.bindingPhone.substr(7, 4) }的手机上，请注意查收！`;
+        // });
+        this.cardid = this.localStorage.get('CardID');
+        this.bindingPhone = this.localStorage.get('Phone');
+        this.MrS = this.localStorage.get('MrS');
+        this.errorMessage = `验证码已发送到手机尾号${ this.bindingPhone.substr(7, 4) }的手机上，请注意查收！`;
         this.route.data
             .subscribe((data: { removeCardResolver: any }) => {
                 if (data.removeCardResolver.hasOwnProperty('Message') && data.removeCardResolver.Message === 'OK') {

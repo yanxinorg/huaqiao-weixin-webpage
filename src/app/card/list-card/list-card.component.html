@@ -2,16 +2,20 @@
     <div class="card-item" *ngFor="let card of cards">
         <div class="d-flex flex-row align-items-center justify-content-between basic-info">
             <div>{{ card.name }}</div>
-            <div class="functional-area">
-                <img src="../../../assets/icons/public/refresh.png"/>
-                <img src="../../../assets/icons/public/more.png" (click)="card.isShowMore=!card.isShowMore"/>
+            <div class="d-flex flex-row justify-content-center align-items-center">
+                <div class="attached">
+                    <i class="fas fa-sync"></i>
+                </div>
+                <div class="attached">
+                    <i class="far fa-caret-square-down" (click)="card.isShowMore=!card.isShowMore"></i>
+                </div>
                 <div class="more list-group" *ngIf="card.isShowMore">
                     <button class="list-group-item list-group-item-action"
-                            (click)="setAsDefaultPatientIdCard(card.cardid,MrS)">
+                            (click)="setAsDefaultPatientIdCard(card.cardid)">
                         设为默认
                     </button>
                     <button class="list-group-item list-group-item-action"
-                            (click)="unbindPatientIdCard(card.cardid, card.phone, MrS)">
+                            (click)="unbindPatientIdCard(card.cardid, card.phone)">
                         解绑
                     </button>
                 </div>

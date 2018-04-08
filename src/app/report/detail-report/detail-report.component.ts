@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import * as html2canvas from 'html2canvas';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LocalStorageService} from '../../services/local.storage.service';
+import {ReportDetail} from '../../services/backbone.structure';
 
 @Component({
     selector: 'app-detail-report',
@@ -9,13 +10,14 @@ import {LocalStorageService} from '../../services/local.storage.service';
     styleUrls: ['./detail-report.component.css']
 })
 export class DetailReportComponent implements OnInit {
-    patientHeadImage = '../../../assets/icons/report/head-image.png';
-    patientName = '';
-    patientGender = '';
-    patientAge = '';
-    reportTitle = '';
-    reportDatetime = '';
-    reportSampleType = '';
+    // patientHeadImage = '../../../assets/icons/report/head-image.png';
+    // patientName = '';
+    // patientGender = '';
+    // patientAge = '';
+    // reportTitle = '';
+    // reportDatetime = '';
+    // reportSampleType = '';
+    reportDetail: ReportDetail;
     inspections: any[];
 
     constructor(private route: ActivatedRoute,
@@ -24,13 +26,14 @@ export class DetailReportComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.route.paramMap.subscribe(params => {
-            this.patientName = params.get('name');
-            this.patientGender = params.get('gender');
-            this.reportTitle = params.get('title');
-            this.reportDatetime = params.get('create_time');
-            this.reportSampleType = params.get('sample');
-        });
+        // this.route.paramMap.subscribe(params => {
+        //     this.patientName = params.get('name');
+        //     this.patientGender = params.get('gender');
+        //     this.reportTitle = params.get('title');
+        //     this.reportDatetime = params.get('create_time');
+        //     this.reportSampleType = params.get('sample');
+        // });
+        this.reportDetail = this.localStorage.getObject('Report');
         this.route.data
             .subscribe((data: { reportInspectionResolver: any }) => {
                 this.inspections = data.reportInspectionResolver;

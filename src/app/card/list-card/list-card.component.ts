@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BackboneService} from '../../services/backbone.service';
+import {LocalStorageService} from '../../services/local.storage.service';
 
 @Component({
     selector: 'app-list-card',
@@ -13,14 +14,12 @@ export class ListCardComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
+                private localStorage: LocalStorageService,
                 private backbone: BackboneService) {
     }
 
     ngOnInit() {
-        this.route.paramMap
-            .subscribe(param => {
-                this.MrS = param.get('s');
-            });
+        this.MrS = this.localStorage.get('MrS');
         this.route.data
             .subscribe((data: { cardListResolver: any }) => {
                 this.cards = data.cardListResolver.map(item => {
@@ -30,12 +29,15 @@ export class ListCardComponent implements OnInit {
             });
     }
 
-    unbindPatientIdCard(cardid: string, phone: string, s: string) {
-        this.router.navigate(['/card/unbind', {cardid: cardid, phone: phone, s: s}]).then();
+    unbindPatientIdCard(cardid: string, phone: string) {
+        this.localStorage.set('CardID', cardid);
+        this.localStorage.set('Phone', phone);
+        // this.router.navigate(['/card/unbind', {cardid: cardid, phone: phone, s: s}]).then();
+        this.router.navigate(['/card/unbind']).then();
     }
 
-    setAsDefaultPatientIdCard(cardid: string, s: string): void {
-        this.backbone.setAsDefaultPatientIdCard(s, cardid)
+    setAsDefaultPatientIdCard(cardid: string): void {
+        this.backbone.setAsDefaultPatientIdCard(this.MrS, cardid)
             .subscribe(data => {
                 if (data.code === 0) {
                     this.cards = this.cards.map(item => {

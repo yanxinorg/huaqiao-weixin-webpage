@@ -16,6 +16,7 @@ import {UnbindCardComponent} from './card/unbind-card/unbind-card.component';
 import {UserInfoResolver} from './services/resolvers/user.resolver';
 import {MapTencentComponent} from './tools/map-tencent/map-tencent.component';
 import {MapAliComponent} from './tools/map-ali/map-ali.component';
+import {AuthGuardService} from './services/auth-guard.service';
 
 const __ROUTES__: Routes = [
     {
@@ -28,6 +29,7 @@ const __ROUTES__: Routes = [
             {
                 path: 'detail',
                 component: DetailReportComponent,
+                canActivate: [AuthGuardService],
                 resolve: {
                     reportInspectionResolver: ReportInspectionResolver
                 }
@@ -40,6 +42,7 @@ const __ROUTES__: Routes = [
     },
     {
         path: 'card',
+        canActivate: [AuthGuardService],
         children: [
             {
                 path: 'list',

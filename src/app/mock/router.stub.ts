@@ -8,7 +8,6 @@ export class RouterSpy {
     // navigate = jasmine.createSpy('navigate').and.returnValue(asyncData(true));
     navigate = jasmine.createSpy('navigate').and.callFake(
         (params) => {
-            console.log(params);
             return asyncData(true);
         }
     );

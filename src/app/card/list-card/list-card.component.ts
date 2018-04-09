@@ -33,7 +33,7 @@ export class ListCardComponent implements OnInit {
         this.localStorage.set('CardID', cardid);
         this.localStorage.set('Phone', phone);
         // this.router.navigate(['/card/unbind', {cardid: cardid, phone: phone, s: s}]).then();
-        this.router.navigate(['/card/unbind']).then();
+        this.router.navigate(['/card/unbind']);
     }
 
     setAsDefaultPatientIdCard(cardid: string): void {

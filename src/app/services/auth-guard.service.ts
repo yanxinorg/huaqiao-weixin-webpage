@@ -1,10 +1,11 @@
 import {LocalStorageService} from './local.storage.service';
-import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {Injectable} from '@angular/core';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
-    constructor(private  localStorage: LocalStorageService) {
+    constructor(private router: Router,
+                private  localStorage: LocalStorageService) {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
@@ -13,6 +14,10 @@ export class AuthGuardService implements CanActivate {
     }
 
     checkLogin(url: string): boolean {
-        return this.localStorage.get('MrS') !== '';
+        if (this.localStorage.get('MrS') !== '') {
+            return true;
+        }
+        this.router.navigate(['/']);
+        return false;
     }
 }

@@ -24,6 +24,8 @@ import {MapBaiduComponent} from './tools/map-baidu/map-baidu.component';
 import {MapAliComponent} from './tools/map-ali/map-ali.component';
 import {NewCardCheckedComponent} from './card/new-card-checked/new-card-checked.component';
 import {UnbindCardComponent} from './card/unbind-card/unbind-card.component';
+import {TransferStationComponent} from './transfer-station/transfer-station.component';
+import {NotFoundComponent} from './error/not-found/not-found.component';
 
 @NgModule({
     declarations: [
@@ -39,7 +41,9 @@ import {UnbindCardComponent} from './card/unbind-card/unbind-card.component';
         MapBaiduComponent,
         MapTencentComponent,
         MapAliComponent,
-        UnbindCardComponent
+        UnbindCardComponent,
+        TransferStationComponent,
+        NotFoundComponent
     ],
     imports: [
         BrowserModule,

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {LocalStorageService} from '../../services/local.storage.service';
 
 @Component({
     selector: 'app-detail-user',
@@ -9,19 +8,15 @@ import {LocalStorageService} from '../../services/local.storage.service';
 })
 export class DetailUserComponent implements OnInit {
     userHeadImage = '../assets/icons/report/head-image.png';
-    name = 'XXXX';
-    gender = 1;
+    name = '';
+    gender = 0;
     // age = 'XX岁';
     // session: string;
 
-    constructor(private route: ActivatedRoute,
-                private localStorage: LocalStorageService) {
+    constructor(private route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.route.paramMap.subscribe(params => {
-            this.localStorage.set('MrS', params.get('s'));
-        });
         this.route.data
             .subscribe((data: { userInfoResolver: any }) => {
                 const userInfo = data.userInfoResolver[0];

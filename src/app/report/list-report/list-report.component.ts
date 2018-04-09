@@ -21,27 +21,20 @@ export class ListReportComponent implements OnInit {
     reports: any[];
     isEmpty = false;
 
-    constructor(private route: ActivatedRoute,
-                private router: Router,
+    constructor(private router: Router,
                 private localStorage: LocalStorageService,
                 private backbone: BackboneService) {
     }
 
     ngOnInit() {
-        // 默认查询取值过去7天的记录
+        // 默认查询取值过去7天的this记录
         const fd = moment().subtract(7, 'days');
         const td = moment();
         this.fromDate = {year: fd.get('year'), month: fd.get('month') + 1, day: fd.get('date')};
         this.toDate = {year: td.get('year'), month: td.get('month') + 1, day: td.get('date')};
-        this.route.paramMap.subscribe(params => {
-            this.MrS = params.get('s');
-            this.patientName = params.get('n');
-            this.patientSex = +params.get('g');
-            // TODO: 如果MrS为空，则提示重新登录，或许可以重定向至错误提示页
-            if (typeof this.MrS === 'undefined' || this.MrS === null) {
-                this.errorMessage = '请重新登录';
-            }
-        });
+        this.MrS = this.localStorage.get('MrS');
+        this.patientName = this.localStorage.get('n');
+        this.patientSex = +this.localStorage.get('g');
     }
 
     /**
@@ -57,7 +50,9 @@ export class ListReportComponent implements OnInit {
                      *  未绑定就诊卡 或者 未设置默认就诊卡
                      */
                     if (data.hasOwnProperty('code') && data.code === -400) {
-                        this.errorMessage = '请进入个人中心设置默认就诊卡后再查询';
+                        this.errorMessage = '登录超时或未设置默认就诊卡';
+                        this.isEmpty = true;
+                        this.reports = [];
                     } else {
                         /**
                          *  判断报告单是否空
@@ -111,7 +106,7 @@ export class ListReportComponent implements OnInit {
         this.localStorage.setObject('Report', new ReportDetail(
             id, this.patientName, this.patientSex, title, createTime, sample
         ));
-        this.router.navigate(['/report/detail']).then();
+        this.router.navigate(['/report/detail']);
         // this.router.navigate(['/report/detail', {
         //     rid: id,
         //     name: this.patientName,

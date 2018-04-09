@@ -99,7 +99,7 @@ export class NewCardCheckedComponent implements OnInit {
              */
             (reason) => {
                 console.log('Dismiss - ' + reason);
-                this.router.navigate(['/card/list', {s: this.MrS}]).then();
+                this.router.navigate(['/card/list']);
             });
     }
 

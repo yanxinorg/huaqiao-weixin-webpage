@@ -54,7 +54,6 @@ export class UnbindCardComponent implements OnInit {
             this.backbone
                 .unbindPatientIdCard(this.verificationSms, this.bindingPhone, this.verificationCode, this.cardid)
                 .subscribe(data => {
-                    console.log(data);
                     this.errorMessage = '';
                     if (data.code === 0) {
                         this.openHintModal('成功', `就诊卡${ this.cardid }已解绑`);
@@ -88,7 +87,7 @@ export class UnbindCardComponent implements OnInit {
              */
             (reason) => {
                 console.log('Dismiss - ' + reason);
-                this.router.navigate(['/card/list', {s: this.MrS}]).then();
+                this.router.navigate(['/card/list']);
             });
     }
 }

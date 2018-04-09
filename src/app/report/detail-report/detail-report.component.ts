@@ -55,7 +55,7 @@ export class DetailReportComponent implements OnInit {
              */
             // that.router.navigate(['/report/snapshot', {snapshot: canvas.toDataURL('image/png')}]).then();
             that.localStorage.set('snapshot', canvas.toDataURL('image/png'));
-            that.router.navigate(['/report/snapshot']).then();
+            that.router.navigate(['/report/snapshot']);
         });
     }
 }

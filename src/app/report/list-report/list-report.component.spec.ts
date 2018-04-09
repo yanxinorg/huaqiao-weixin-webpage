@@ -1,9 +1,9 @@
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import {ListReportComponent} from './list-report.component';
-import {ActivatedRouteStub} from '../../mock/router.stub';
+import {RouterSpy} from '../../mock/router.stub';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {BackboneService} from '../../services/backbone.service';
 import {BackboneServiceSpy} from '../../mock/backbone.service.spy';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -14,16 +14,14 @@ import {LocalStorageService} from '../../services/local.storage.service';
 describe('ListReportComponent', () => {
     let component: ListReportComponent;
     let fixture: ComponentFixture<ListReportComponent>;
-    let activatedRouteStub: ActivatedRouteStub;
+    let localStorage: LocalStorageService;
     let page: Page;
-    const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
 
     beforeEach(() => {
-        activatedRouteStub = new ActivatedRouteStub({
-            s: 'TEST-SESSION',
-            n: '',
-            g: ''
-        });
+        this.localStorage = new LocalStorageService();
+        this.localStorage.set('MrS', 'TEST-SESSION');
+        this.localStorage.set('n', 'TEST-NAME');
+        this.localStorage.set('g', '1');
     });
 
     beforeEach(async(() => {
@@ -34,9 +32,8 @@ describe('ListReportComponent', () => {
             declarations: [ListReportComponent],
             schemas: [NO_ERRORS_SCHEMA],
             providers: [
-                {provide: ActivatedRoute, useValue: activatedRouteStub},
-                {provide: Router, useValue: routerSpy},
-                {provide: LocalStorageService, useClass: LocalStorageService},
+                {provide: Router, useClass: RouterSpy},
+                {provide: LocalStorageService, useValue: this.localStorage},
                 {provide: BackboneService, useClass: BackboneServiceSpy}
             ]
         })

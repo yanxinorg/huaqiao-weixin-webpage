@@ -1,14 +1,16 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-
+import {ActivatedRoute, Router} from '@angular/router';
+import {By} from '@angular/platform-browser';
 import {DetailReportComponent} from './detail-report.component';
 import {ActivatedRouteStub, RouterSpy} from '../../mock/router.stub';
-import {ActivatedRoute, Router} from '@angular/router';
 import {LocalStorageService} from '../../services/local.storage.service';
+import {click} from '../../mock/helper';
 
 describe('DetailReportComponent', () => {
     let component: DetailReportComponent;
     let fixture: ComponentFixture<DetailReportComponent>;
     let activatedRouteStub: ActivatedRouteStub;
+    let page: Page;
 
     beforeEach(() => {
         activatedRouteStub = new ActivatedRouteStub({
@@ -36,6 +38,7 @@ describe('DetailReportComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(DetailReportComponent);
         component = fixture.componentInstance;
+        page = new Page(fixture);
         fixture.detectChanges();
     });
 
@@ -43,16 +46,29 @@ describe('DetailReportComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    // it('保存至相册', async(() => {
-    //     const routerSpy = <any> fixture.debugElement.injector.get(Router);
-    //     console.log(routerSpy);
-    //
-    //     click(fixture.debugElement.query(By.css('button')));
-    //     fixture.detectChanges();
-    //
-    //     fixture.whenStable().then(() => {
-    //         expect(routerSpy.navigate).toHaveBeenCalled();
-    //         console.log(routerSpy.navigate.calls.any());
-    //     });
-    // }));
+    it('保存至相册', () => {
+        click(page.button);
+        fixture.detectChanges();
+
+        expect(page.navigateSpy).toHaveBeenCalled();
+    });
 });
+
+/////////// Helpers /////
+
+class Page {
+    fixture: ComponentFixture<DetailReportComponent>;
+    navigateSpy: jasmine.Spy;
+
+    constructor(fixture: ComponentFixture<DetailReportComponent>) {
+        this.fixture = fixture;
+
+        // get the navigate spy from the injected router spy object
+        const routerSpy = <any> fixture.debugElement.injector.get(Router);
+        this.navigateSpy = routerSpy.navigate;
+    }
+
+    get button() {
+        return this.fixture.debugElement.query(By.css('button'));
+    }
+}

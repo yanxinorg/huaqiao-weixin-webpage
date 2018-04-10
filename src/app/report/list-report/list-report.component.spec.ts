@@ -57,6 +57,10 @@ describe('ListReportComponent', () => {
         fixture.detectChanges();
         expect(page.noRecordDisplay.nativeElement.textContent.trim()).toEqual('暂无记录');
     }));
+
+    it('应跳转至报告单详情页【 点击列表项 】', () => {
+        // TODO: 点击查询后，生成模拟数据。不为空。
+    });
 });
 
 /////////// Helpers /////

@@ -12,24 +12,59 @@ import {BackboneServiceSpy} from '../../mock/backbone.service.spy';
 import {click} from '../../mock/helper';
 import {LocalStorageService} from '../../services/local.storage.service';
 
+let component: UnbindCardComponent;
+let fixture: ComponentFixture<UnbindCardComponent>;
+let activatedRouteStub: ActivatedRouteStub;
+let page: Page;
+const verificationSms = {
+    Message: 'OK',
+    RequestId: 'BC511054-D97B-4F01-BB0C-FE251DFF85F2',
+    BizId: '241302421377167754^0',
+    Code: 'OK'
+};
+
 describe('UnbindCardComponent', () => {
-    let component: UnbindCardComponent;
-    let fixture: ComponentFixture<UnbindCardComponent>;
-    let activatedRouteStub: ActivatedRouteStub;
-    let page: Page;
-    const verificationSms = {
-        Message: 'OK',
-        RequestId: 'BC511054-D97B-4F01-BB0C-FE251DFF85F2',
-        BizId: '241302421377167754^0',
-        Code: 'OK'
-    };
+    createTestingModule(verificationSms);
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
+
+    it('点击解绑应触发解绑流程', fakeAsync(() => {
+        click(page.submit);
+        tick();
+
+        fixture.detectChanges();
+        expect(page.alert).toBeNull('应不再显示错误提示框');
+    }));
+
+    it('应给出错误提示【 短信未正常收到时 】', () => {
+        activatedRouteStub.setResolver({removeCardResolver: '发生错误！'});
+        fixture.detectChanges();
+        expect(page.alert.textContent).toEqual('发生错误！');
+    });
+});
+
+describe('重新定义测试参数', () => {
+    createTestingModule('');
+
+    it('点击解绑应触发解绑流程', fakeAsync(() => {
+        click(page.submit);
+        tick();
+
+        fixture.detectChanges();
+        expect(page.alert.textContent).toEqual('请输入正确的验证码');
+    }));
+});
+
+function createTestingModule(resolver: any) {
     beforeEach(() => {
         activatedRouteStub = new ActivatedRouteStub({
             s: '',
             phone: '',
             cardid: ''
         });
-        activatedRouteStub.setResolver({removeCardResolver: verificationSms});
+        activatedRouteStub.setResolver({removeCardResolver: resolver});
     });
 
     beforeEach(async(() => {
@@ -56,27 +91,15 @@ describe('UnbindCardComponent', () => {
         page = new Page(fixture);
         fixture.detectChanges();
     });
-
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
-
-    it('点击解绑应触发解绑流程', fakeAsync(() => {
-        click(page.submit);
-        tick();
-
-        fixture.detectChanges();
-        expect(page.alert).toBeNull('应不再显示错误提示框');
-    }));
-});
+}
 
 /////////// Helpers /////
 
 class Page {
     fixture: ComponentFixture<UnbindCardComponent>;
 
-    constructor(fixture: ComponentFixture<UnbindCardComponent>) {
-        this.fixture = fixture;
+    constructor(componentFixture: ComponentFixture<UnbindCardComponent>) {
+        this.fixture = componentFixture;
     }
 
     get submit() {
